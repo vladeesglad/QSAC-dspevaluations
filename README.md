@@ -9,6 +9,7 @@ The basic data model was built on Force.com platform, and consists of an evaluat
 
 There is test code to accompany the triggers; bear in mind however, that the test code is specific to an environment that includes a 3rd party application by Financial Force - HCM.  This application utilizes HCM objects and the test code is designed to replicate them, as well.  
 
+The application also utilized apex MetadataType records, which govern some of the CSS on the VisualForce pages.
 
 
 
