@@ -1,0 +1,396 @@
+@istest
+
+public class testDSPevalcreation {
+    
+    public static testMethod void testListCreation() {
+
+//  CREATE TEST OBJECTS /
+        
+        VanaHCM__location__c loc1 = new vanaHCM__location__c();
+        VanaHCM__location__c loc2 = new vanaHCM__location__c();
+        VanaHCM__location__c loc3 = new vanaHCM__location__c();
+        
+        loc1.VanaHCM__location_name__c = 'Astoria';
+        loc1.name = 'l1';
+        database.saveresult alocin = database.insert(loc1); 
+        
+        loc2.VanaHCM__location_name__c = 'Broadway';
+        loc2.name = 'l2';
+        database.saveresult blocin = database.insert(loc2);
+        
+        loc3.VanaHCM__location_name__c = 'Manhattan';
+        loc3.name = 'l3';
+        database.saveresult mlocin = database.insert(loc3);
+        
+        VanaHCM__Pay_Group__c qsacgroup = new VanaHCM__Pay_Group__c(name='QSAC', VanaHCM__Pay_Group_Description__c='this field is required');
+        insert(qsacgroup);
+        
+
+//      BUILD WC CODE 
+//   
+                    
+  
+        VanaHCM__Worker_Compensation_Code__c newcode = new VanaHCM__Worker_Compensation_Code__c();
+        newcode.name = 'NY Office';
+        
+        database.saveresult wccodeid = database.insert(newcode);  
+        
+//      QUERY USERS FOR IDS AND NAMES        
+        
+        list <user> testu = new list <user>([SELECT id, profile.name, isActive, name FROM user WHERE isActive = true 
+                                             AND profile.name = 'System Administrator' LIMIT 2]);
+        
+        list <user> testu2 = new list <user>([SELECT id, profile.name, isActive, name FROM user WHERE isActive = true 
+                                             AND profile.name = 'QSAC Standard User' LIMIT 7]);
+        
+        
+        system.debug(testu[0].name);
+        system.debug(testu[1].name);
+        
+        system.debug(testu2[0].name);
+        system.debug(testu2[1].name);
+        system.debug(testu2[2].name);
+        system.debug(testu2[3].name);
+        system.debug(testu2[4].name);
+        system.debug(testu2[5].name);
+        system.debug(testu2[6].name);
+        
+        
+        
+        
+        string first1name = testu[0].name.substringbeforelast(' ');
+        string last1name = testu[0].name.substringafterlast(' ');
+        string first2name = testu[1].name.substringbeforelast(' ');
+        string last2name = testu[1].name.substringafterlast(' ');
+        
+        string first3name = testu2[0].name.substringbeforelast(' ');
+        string last3name = testu2[0].name.substringafterlast(' ');
+        string first4name = testu2[1].name.substringbeforelast(' ');
+        string last4name = testu2[1].name.substringafterlast(' ');            
+        string first5name = testu2[2].name.substringbeforelast(' ');
+        string last5name = testu2[2].name.substringafterlast(' ');            
+        string first6name = testu2[3].name.substringbeforelast(' ');
+        string last6name = testu2[3].name.substringafterlast(' ');        
+        string first7name = testu2[4].name.substringbeforelast(' ');
+        string last7name = testu2[4].name.substringafterlast(' ');
+        string first8name = testu2[5].name.substringbeforelast(' ');
+        string last8name = testu2[5].name.substringafterlast(' ');
+        string first9name = testu2[6].name.substringbeforelast(' ');
+        string last9name = testu2[6].name.substringafterlast(' ');   
+        
+        
+
+//      THE OBJECTIVE HERE IS TO SET A HIRE DATE 90 DAYS LATER THAN TODAY'S DATE BECAUSE THE TRIGGER IS WRITTEN TO FIRE
+//      90 DAYS BEFORE TODAY'S DATE; INITIALLY, WE SET THIS AT 91 (WHICH WILL NOT FIRE TRIGGER);
+//      IN TEST, IT IS THEN CHANGED TO 90 BY SUBTRACTING 1 FROM TEMPHIREDATE..... AND THIS SHOULD RUN THE TRIGGER....
+        
+        date temphiredate = date.today() -274;
+        
+//      
+//      BUILD WORKERS WITH USER LOOKUPS AND LOCATIONS... FIRST ONE IS MANAGER, SECOND IS SUBORDINATE... MANAGER REQUIRES A PERSON LOOKUP OBJECT....
+   
+        VanaHCM__worker__c twkr1 = new VanaHCM__worker__c(name = testu[0].name, VanaHCM__Worker_type_worker__c = 'Full Time Non-Union',
+                   Location_1_Name__c = '26-HOLLIS B.E.', VanaHCM__Worker_Comp_Code__c = wccodeid.getid(),
+                   VanaHCM__EEO_Class__c = 'Technicians', VanaHCM__Ethnicity__c = 'Multi', VanaHCM__I_9_Status__c = 'US Citizen',
+                   Source_Detail__c = 'xyz', VanaHCM__Source__c = 'Other', Holiday_Class__c = 'Immediate (FT Other)',
+                   PPD_Status__c = 'Compliant', VanaHCM__Marital_Status__c = 'Single', VanaHCM__Date_of_Birth__c = temphiredate -2000,
+                   VanaHCM__Hire_Date__c = temphiredate, VanaHCM__user__c = testu[0].id, VanaHCM__External_Worker_ID__c = 'abc',
+                   VanaHCM__badge__c = 'defgh', VanaHCM__Location_Person__c = mlocin.getid(), job_title__c = 'Director',
+                   VanaHCM__first_name__c = first1name, VanaHCM__last_name__c = last1name, social_security_number__c ='123-45-6789');
+        
+        database.saveresult mgrid = database.insert(twkr1);
+        
+        list <VanaHCM__worker_sub__c> mgrlookup = new list <VanaHCM__worker_sub__c>([SELECT id from VanaHCM__worker_sub__c WHERE 
+                   VanaHCM__worker__c = :mgrid.getid() LIMIT 1]) ;
+        
+        string mgrpersonid = mgrlookup[0].id;
+        
+        
+        
+        VanaHCM__worker__c twkr2 = new VanaHCM__worker__c(name = testu[1].name, VanaHCM__Worker_type_worker__c = 'Full Time Non-Union',
+                   Location_1_Name__c = '26-HOLLIS B.E.', VanaHCM__Worker_Comp_Code__c = wccodeid.getid(),
+                   VanaHCM__EEO_Class__c = 'Technicians', VanaHCM__Ethnicity__c = 'Multi', VanaHCM__I_9_Status__c = 'US Citizen',
+                   Source_Detail__c = 'xyz', VanaHCM__Source__c = 'Other', Holiday_Class__c = 'Immediate (FT Other)',
+                   PPD_Status__c = 'Compliant', VanaHCM__Marital_Status__c = 'Single', VanaHCM__Date_of_Birth__c = temphiredate -2000,
+                   VanaHCM__Hire_Date__c = temphiredate-300, VanaHCM__user__c = testu[1].id, VanaHCM__External_Worker_ID__c = 'abc',
+                   VanaHCM__badge__c = 'efghi', VanaHCM__Location_Person__c = blocin.getid(), job_title__c = 'Respite Worker',
+                   VanaHCM__Manager__c = mgrpersonid, VanaHCM__first_name__c = first2name, VanaHCM__last_name__c = last2name, 
+                   social_security_number__c ='234-56-7890', VanaHCM__manager_user__c = testu[0].id );        
+        
+        database.saveresult wrkrid = database.insert(twkr2);
+        
+        list <VanaHCM__worker__c> getmgr = new list <VanaHCM__worker__c>([SELECT id,  VanaHCM__manager_user__c, mgrs_user_id__c
+                                                                         FROM  VanaHCM__worker__c WHERE
+                                                                         VanaHCM__first_name__c = :first2name AND VanaHCM__last_name__c = :last2name
+                                                                         LIMIT 1]);
+        
+        system.debug(getmgr[0]);
+
+//    system.debug(mgrid.getid());
+//    system.debug(wrkrid.getid());
+//    
+//    THIS LIST QUERY BUILDS A LIST OF ALL WORKERS BECAUSE THIS IS A TEST AND THE ONLY WORKERS ARE THOSE PLACED HERE BY THE TEST CODE
+//    ALSO, NO COLUMNS ARE QUERIED SO RECORDS SHOULD ONLY RETURN ID; THE LOOP ADDS / CHANGES A VALUE FOR HIRE DATE
+//    AND THEN, INSIDE THE TEST VESSEL, UPDATES THE RECORDS WITH NEW HIRE DATES, AND WHICH SHOULD TRIGGER OUR TRIGGER :-)
+//    
+//    TEST CONDITIONS -- ONE CHANGED RECORD - QUERY COUNT OF NEW EVALS
+//    MULTIPLE CHANGED RECORDS - QUERY COUNT OF EVALS -  QUERY ID OF WORKERS CREATED -
+//    QUERY ID NOT EQUAL TO MANAGER'S ID
+//    QUERY MANAGER'S ID EQUAL TO MANAGER'S ID
+//    QUERY RECORDS DO NOT INCLUDE ID OF RECORDS NOT MEETING IF REQUIREMENTS....
+//    
+//    
+       
+        list <VanaHCM__worker__c> allworkers = new list <VanaHCM__worker__c>([SELECT id, VanaHCM__hire_date__c from VanaHCM__worker__c LIMIT 2]);
+        
+        system.debug(allworkers[0].VanaHCM__hire_date__c);
+        system.debug(allworkers[1].VanaHCM__hire_date__c);
+        
+        
+        for (VanaHCM__worker__c w : allworkers) {
+            w.VanaHCM__hire_date__c = temphiredate - 1;        
+        }
+        
+        system.debug(allworkers);
+        
+        
+        
+        Test.startTest();
+        
+        if (!allworkers.isempty()) {
+            
+            update(allworkers);
+            
+
+
+        }
+        
+        list <DSP_Eval__c> evals1 = new list <DSP_Eval__c>([SELECT id, employee_eval_subject__c, mgr_evaluator__c, mgr_evaluator__r.id
+                                                            FROM dsp_eval__c LIMIT 100]);
+        system.debug(evals1[0]);
+        if (evals1.size() > 1) {
+            system.debug(evals1[1]);
+        }
+        
+        system.assertequals(2, evals1.size());
+//        system.assertequals(string.valueof(mgrid), evals1[0].mgr_evaluator__r.id);
+        
+        
+
+        
+        
+//      NEW TEST DATA
+
+        
+        allworkers.clear();
+
+        VanaHCM__worker__c twkr3 = new VanaHCM__worker__c(VanaHCM__Worker_type_worker__c = 'Full Time Non-Union',
+                   Location_1_Name__c = '26-HOLLIS B.E.', VanaHCM__Worker_Comp_Code__c = wccodeid.getid(),
+                   VanaHCM__EEO_Class__c = 'Technicians', VanaHCM__Ethnicity__c = 'Multi', VanaHCM__I_9_Status__c = 'US Citizen',
+                   Source_Detail__c = 'xyz', VanaHCM__Source__c = 'Other', Holiday_Class__c = 'Immediate (FT Other)',
+                   PPD_Status__c = 'Compliant', VanaHCM__Marital_Status__c = 'Single', VanaHCM__Date_of_Birth__c = temphiredate -2000,
+                   VanaHCM__Hire_Date__c = temphiredate-300,  VanaHCM__External_Worker_ID__c = 'abc',
+                   VanaHCM__badge__c = 'fghij', VanaHCM__Location_Person__c = blocin.getid(), job_title__c = 'Respite Worker',
+                   VanaHCM__Manager__c = mgrpersonid, VanaHCM__first_name__c = first3name, VanaHCM__last_name__c = last3name, 
+                   VanaHCM__user__c = testu2[0].id , name = testu2[0].name, social_security_number__c ='345-67-8901',
+                                                          VanaHCM__manager_user__c = testu[0].id);        
+        
+        database.saveresult wrkr2id = database.insert(twkr3);      
+        
+        
+        VanaHCM__worker__c twkr4 = new VanaHCM__worker__c(VanaHCM__Worker_type_worker__c = 'Full Time Non-Union',
+                   Location_1_Name__c = '26-HOLLIS B.E.', VanaHCM__Worker_Comp_Code__c = wccodeid.getid(),
+                   VanaHCM__EEO_Class__c = 'Technicians', VanaHCM__Ethnicity__c = 'Multi', VanaHCM__I_9_Status__c = 'US Citizen',
+                   Source_Detail__c = 'xyz', VanaHCM__Source__c = 'Other', Holiday_Class__c = 'Immediate (FT Other)',
+                   PPD_Status__c = 'Compliant', VanaHCM__Marital_Status__c = 'Single', VanaHCM__Date_of_Birth__c = temphiredate -2000,
+                   VanaHCM__Hire_Date__c = temphiredate-300,  VanaHCM__External_Worker_ID__c = 'abc',
+                   VanaHCM__badge__c = 'ghijk', VanaHCM__Location_Person__c = blocin.getid(), job_title__c = 'Respite Worker',
+                   VanaHCM__Manager__c = mgrpersonid, VanaHCM__first_name__c = first4name, VanaHCM__last_name__c = last4name, 
+                   VanaHCM__user__c = testu2[1].id , name = testu2[1].name, social_security_number__c ='456-78-9012',
+                                                         VanaHCM__manager_user__c = testu[0].id);        
+        
+        database.saveresult wrkr3id = database.insert(twkr4);  
+
+
+        VanaHCM__worker__c twkr5 = new VanaHCM__worker__c(VanaHCM__Worker_type_worker__c = 'Full Time Non-Union',
+                   Location_1_Name__c = '26-HOLLIS B.E.', VanaHCM__Worker_Comp_Code__c = wccodeid.getid(),
+                   VanaHCM__EEO_Class__c = 'Technicians', VanaHCM__Ethnicity__c = 'Multi', VanaHCM__I_9_Status__c = 'US Citizen',
+                   Source_Detail__c = 'xyz', VanaHCM__Source__c = 'Other', Holiday_Class__c = 'Immediate (FT Other)',
+                   PPD_Status__c = 'Compliant', VanaHCM__Marital_Status__c = 'Single', VanaHCM__Date_of_Birth__c = temphiredate -2000,
+                   VanaHCM__Hire_Date__c = temphiredate-300,  VanaHCM__External_Worker_ID__c = 'abc',
+                   VanaHCM__badge__c = 'hijkl', VanaHCM__Location_Person__c = blocin.getid(), job_title__c = 'Respite Worker',
+                   VanaHCM__Manager__c = mgrpersonid, VanaHCM__first_name__c = first5name, VanaHCM__last_name__c = last5name, 
+                   VanaHCM__user__c = testu2[2].id , name = testu2[2].name, social_security_number__c ='567-89-0123',
+                                                         VanaHCM__manager_user__c = testu[0].id);        
+        
+        database.saveresult wrkr4id = database.insert(twkr5);  
+
+
+        VanaHCM__worker__c twkr6 = new VanaHCM__worker__c(VanaHCM__Worker_type_worker__c = 'Full Time Non-Union',
+                   Location_1_Name__c = '26-HOLLIS B.E.', VanaHCM__Worker_Comp_Code__c = wccodeid.getid(),
+                   VanaHCM__EEO_Class__c = 'Technicians', VanaHCM__Ethnicity__c = 'Multi', VanaHCM__I_9_Status__c = 'US Citizen',
+                   Source_Detail__c = 'xyz', VanaHCM__Source__c = 'Other', Holiday_Class__c = 'Immediate (FT Other)',
+                   PPD_Status__c = 'Compliant', VanaHCM__Marital_Status__c = 'Single', VanaHCM__Date_of_Birth__c = temphiredate -2000,
+                   VanaHCM__Hire_Date__c = temphiredate-300,  VanaHCM__External_Worker_ID__c = 'abc',
+                   VanaHCM__badge__c = 'ijklm', VanaHCM__Location_Person__c = blocin.getid(), job_title__c = 'Respite Worker',
+                   VanaHCM__Manager__c = mgrpersonid, VanaHCM__first_name__c = first6name, VanaHCM__last_name__c = last6name, 
+                   VanaHCM__user__c = testu2[3].id , name = testu2[3].name, social_security_number__c ='678-90-1234',
+                                                         VanaHCM__manager_user__c = testu[0].id);        
+        
+        database.saveresult wrkr5id = database.insert(twkr6); 
+        
+        
+
+        VanaHCM__worker__c twkr7 = new VanaHCM__worker__c(VanaHCM__Worker_type_worker__c = 'Full Time Non-Union',
+                   Location_1_Name__c = '26-HOLLIS B.E.', VanaHCM__Worker_Comp_Code__c = wccodeid.getid(),
+                   VanaHCM__EEO_Class__c = 'Technicians', VanaHCM__Ethnicity__c = 'Multi', VanaHCM__I_9_Status__c = 'US Citizen',
+                   Source_Detail__c = 'xyz', VanaHCM__Source__c = 'Other', Holiday_Class__c = 'Immediate (FT Other)',
+                   PPD_Status__c = 'Compliant', VanaHCM__Marital_Status__c = 'Single', VanaHCM__Date_of_Birth__c = temphiredate -2000,
+                   VanaHCM__Hire_Date__c = temphiredate-300,  VanaHCM__External_Worker_ID__c = 'abc',
+                   VanaHCM__badge__c = 'jklmn', VanaHCM__Location_Person__c = blocin.getid(), job_title__c = 'Demo Spec',
+                   VanaHCM__Manager__c = mgrpersonid, VanaHCM__first_name__c = first7name, VanaHCM__last_name__c = last7name, 
+                   VanaHCM__user__c = testu2[4].id , name = testu2[4].name, social_security_number__c ='789-01-2345',
+                                                         VanaHCM__manager_user__c = testu[0].id);        
+        
+        database.saveresult wrkr6id = database.insert(twkr7);
+        
+        VanaHCM__worker__c twkr8 = new VanaHCM__worker__c(VanaHCM__Worker_type_worker__c = 'Full Time Non-Union',
+                   Location_1_Name__c = '26-HOLLIS B.E.', VanaHCM__Worker_Comp_Code__c = wccodeid.getid(),
+                   VanaHCM__EEO_Class__c = 'Technicians', VanaHCM__Ethnicity__c = 'Multi', VanaHCM__I_9_Status__c = 'US Citizen',
+                   Source_Detail__c = 'xyz', VanaHCM__Source__c = 'Other', Holiday_Class__c = 'Immediate (FT Other)',
+                   PPD_Status__c = 'Compliant', VanaHCM__Marital_Status__c = 'Single', VanaHCM__Date_of_Birth__c = temphiredate -2000,
+                   VanaHCM__Hire_Date__c = date.today(),  VanaHCM__External_Worker_ID__c = 'abc',
+                   VanaHCM__badge__c = 'lmnop', VanaHCM__Location_Person__c = blocin.getid(), job_title__c = 'Respite Worker',
+                   VanaHCM__Manager__c = mgrpersonid, VanaHCM__first_name__c = first8name, VanaHCM__last_name__c = last8name, 
+                   VanaHCM__user__c = testu2[5].id , name = testu2[5].name, social_security_number__c ='890-12-3456',
+                                                         VanaHCM__manager_user__c = testu[0].id); 
+        
+        database.saveresult wrkr7id = database.insert(twkr8);
+        
+        
+        
+        allworkers = [SELECT id, name, job_title__c, VanaHCM__last_name__c, Manager_s_Worker_Record_ID__c, VanaHCM__first_name__c
+                      from VanaHCM__worker__c LIMIT 10];
+        
+        system.debug(allworkers.size());
+        
+        for (VanaHCM__worker__c x : allworkers) {
+            if (x.id == wrkr7id.getid()) {
+                x.VanaHCM__first_name__c = first8name + 'xyz';
+                system.debug('line ran for ' + x.vanaHCM__first_name__c);                
+            }
+            else {
+                x.VanaHCM__hire_date__c = temphiredate - 1;  
+            }
+     
+        }
+        
+        
+        VanaHCM__worker__c twkr9 = new VanaHCM__worker__c(VanaHCM__Worker_type_worker__c = 'Full Time Non-Union',
+                   Location_1_Name__c = '26-HOLLIS B.E.', VanaHCM__Worker_Comp_Code__c = wccodeid.getid(),
+                   VanaHCM__EEO_Class__c = 'Technicians', VanaHCM__Ethnicity__c = 'Multi', VanaHCM__I_9_Status__c = 'US Citizen',
+                   Source_Detail__c = 'xyz', VanaHCM__Source__c = 'Other', Holiday_Class__c = 'Immediate (FT Other)',
+                   PPD_Status__c = 'Compliant', VanaHCM__Marital_Status__c = 'Single', VanaHCM__Date_of_Birth__c = temphiredate -2000,
+                   VanaHCM__Hire_Date__c = date.today(),  VanaHCM__External_Worker_ID__c = 'abc',
+                   VanaHCM__badge__c = 'nopqr', VanaHCM__Location_Person__c = blocin.getid(), job_title__c = 'Demo Spec',
+                   VanaHCM__Manager__c = mgrpersonid, VanaHCM__first_name__c = first9name, VanaHCM__last_name__c = last9name, 
+                   VanaHCM__user__c = testu2[6].id , name = testu2[6].name, social_security_number__c ='901-23-4567');
+        
+        allworkers.add(twkr9);
+        
+        system.debug(allworkers);
+        system.debug(allworkers.size());       
+        
+
+        
+        if (!allworkers.isempty()) {
+            
+            upsert(allworkers);
+            
+
+
+        }
+        
+        list <DSP_Eval__c> evals2 = new list <DSP_Eval__c>([SELECT id, employee_eval_subject__r.vanaHCM__last_name__c, hire_date__c, 
+                     employee_eval_subject__c, mgr_evaluator__c, mgr_evaluator__r.id, job_title__c  FROM dsp_eval__c LIMIT 100]);
+        
+        system.debug(evals2[0]);        
+        system.debug(evals2[1]);
+        system.debug(evals2[2]);
+        system.debug(evals2[3]);
+        system.debug(evals2[4]);
+        system.debug(evals2[5]);
+        if(evals2.size() > 6) {
+            system.debug(evals2[6]);
+        }
+        
+        system.debug(evals2[0].employee_eval_subject__r.vanaHCM__last_name__c);        
+        system.debug(evals2[1].employee_eval_subject__r.vanaHCM__last_name__c);
+        system.debug(evals2[2].employee_eval_subject__r.vanaHCM__last_name__c);
+        system.debug(evals2[3].employee_eval_subject__r.vanaHCM__last_name__c);
+        system.debug(evals2[4].employee_eval_subject__r.vanaHCM__last_name__c);
+        system.debug(evals2[5].employee_eval_subject__r.vanaHCM__last_name__c);
+        if(evals2.size() > 6) {
+            system.debug(evals2[6].employee_eval_subject__r.vanaHCM__last_name__c);
+        }
+        
+        system.debug(evals2[0].hire_date__c);        
+        system.debug(evals2[1].hire_date__c);
+        system.debug(evals2[2].hire_date__c);
+        system.debug(evals2[3].hire_date__c);
+        system.debug(evals2[4].hire_date__c);
+        system.debug(evals2[5].hire_date__c);
+        if(evals2.size() > 6) {
+            system.debug(evals2[6].hire_date__c);
+        }
+        
+        
+        
+        
+        
+        
+        system.assertequals(12, evals2.size());
+        
+        system.assertnotequals('Demo Spec', evals2[0].job_title__c);
+        system.assertnotequals('Demo Spec', evals2[1].job_title__c);
+        system.assertnotequals('Demo Spec', evals2[2].job_title__c);
+        system.assertnotequals('Demo Spec', evals2[3].job_title__c);
+        
+        if (evals2.size() > 4) {
+            system.assertnotequals('Demo Specialist', evals2[4].job_title__c);
+        }
+        
+        
+        if (evals2.size() > 5) {
+            system.assertnotequals('Demo Specialist', evals2[5].job_title__c);
+        }  
+        
+        set <string> uniqueemployeeids = new set <string>();
+        
+        for (dsp_eval__c v : evals2) {
+            uniqueemployeeids.add(v.employee_eval_subject__c);            
+        }
+        
+        system.assertequals(6, uniqueemployeeids.size());
+        
+        set <string> mgrids = new set <string>();
+        
+        for (dsp_eval__c u : evals2) {
+            mgrids.add(u.mgr_evaluator__r.id);            
+        }
+        
+        system.assertequals(1, mgrids.size());        
+        
+        
+        
+//        system.assertequals(string.valueof(mgrid), evals1[0].mgr_evaluator__r.id);
+        
+        
+        Test.stopTest();
+                
+        
+
+        
+        
+    }
+}
