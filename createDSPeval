@@ -1,0 +1,80 @@
+trigger createDSPeval on VanaHCM__Worker__c (after insert, after update) {
+    
+    list <dsp_eval__c> evals = new list <dsp_eval__c>();
+    date mydate = date.today();
+    integer x = 0;
+    integer y = 0;
+    
+//		THIS TRIGGER HAS BEEN UPDATED TO MAP RECORD OWNERSHIP TO THE MANAGER (USER ID) UN-TESTED AT THIS POINT.....    
+
+//		THE MAIN TRIGGER FOR EVALS IS DAYS_NEX_ANN__c ON THE WORKER RECORD; IN THE CURRENT REGIME, ALL WORKERS ARE UPDATED.. THE RECORDS ARE TICKLED
+//		DAILY; OTHERWISE, DAYS_NEXT__ANN IS A FORMULA THAT GOES UNEVALUATED WITHOUT A TICKLE TO THE RECORD
+//		ALL FIELDS REQUIRED TO CREATE THE EVAL RECORD ARE CARRIED IN THE WORKER RECORD; THEREFORE, THIS TRIGGER IS A SIMPLE MAPPING WITH
+    //		NO REAL TROUBLING POTENTIAL SIDE-EFFECTS....    
+    
+    for (VanaHCM__worker__c w: trigger.new) {
+        
+        x++;
+        
+        system.debug(w.Days_next_ann__c);
+        system.debug(w.VanaHCM__termination_date__c);
+        system.debug(w.job_title__c);
+        system.debug(w.Manager_s_Worker_Record_ID__c);
+        system.debug(mydate + ' should = ' + string.valueof(x) + ' ' + w.vanaHCM__hire_date__c);
+        
+        if (trigger.isinsert && (w.job_title__c == 'Habilitation Specialist (DH/Resid)'  ||  
+                                 w.job_title__c == 'Therapy Assistant'  || w.job_title__c == 'Habilitation Specialist (Comm Hab)'  || 
+                                 w.job_title__c == 'Habilitation Specialist (PRE)'  || w.job_title__c == 'Matron'  || 
+                                 w.job_title__c == 'Group Leader'  || w.job_title__c == 'Respite Worker'  || w.job_title__c == 'Respite Worker (PRE)')) 
+        {
+            
+            if(w.Manager_s_Worker_Record_ID__c != null) {
+                y ++;
+                system.debug(string.valueof(y) + ':' + w.VanaHCM__Hire_Date__c + '   ' + w.vanaHCM__last_name__c);
+                
+                if (w.VanaHCM__Manager_User__c != null) {
+                    evals.add(new dsp_eval__c(employee_Eval_Subject__c = w.id, mgr_evaluator__c = w.Manager_s_Worker_Record_ID__c,
+                                              site__c = w.VanaHCM__Location_Person__c, OwnerID = w.VanaHCM__Manager_User__c,
+                                              is_initial__c = true));
+                }
+                else {
+                    evals.add(new dsp_eval__c(employee_Eval_Subject__c = w.id, mgr_evaluator__c = w.Manager_s_Worker_Record_ID__c,
+                                              site__c = w.VanaHCM__Location_Person__c, is_initial__c = true));
+                    
+                }
+            }
+            
+            
+        }
+        
+         else if ((trigger.isupdate && w.days_next_ann__c == 90 && w.VanaHCM__termination_date__c == null)  &&  (w.job_title__c == 'Habilitation Specialist (DH/Resid)'  ||  
+                     w.job_title__c == 'Therapy Assistant'  || w.job_title__c == 'Habilitation Specialist (Comm Hab)'  || 
+                     w.job_title__c == 'Habilitation Specialist (PRE)'  || w.job_title__c == 'Matron'  || 
+                     w.job_title__c == 'Group Leader'  || w.job_title__c == 'Respite Worker'  || w.job_title__c == 'Respite Worker (PRE)')) {
+                         
+                         system.debug(w.vanaHCM__hire_date__c);
+                         
+                         if(w.Manager_s_Worker_Record_ID__c != null) {
+                             y ++;
+                             system.debug(string.valueof(y) + ':' + w.VanaHCM__Hire_Date__c + '   ' + w.vanaHCM__last_name__c);
+                             
+                             if (w.VanaHCM__Manager_User__c != null) {
+                                 evals.add(new dsp_eval__c(employee_Eval_Subject__c = w.id, mgr_evaluator__c = w.Manager_s_Worker_Record_ID__c,
+                                                           site__c = w.VanaHCM__Location_Person__c, OwnerID = w.VanaHCM__Manager_User__c,
+                                                           is_initial__c = true));
+                             }
+                             else {
+                                 evals.add(new dsp_eval__c(employee_Eval_Subject__c = w.id, mgr_evaluator__c = w.Manager_s_Worker_Record_ID__c,
+                                                           site__c = w.VanaHCM__Location_Person__c, is_initial__c = true));
+                                 
+                             }
+                         }
+                     }
+
+    }
+    
+    if(!evals.isempty()) {
+        insert(evals);
+    }
+
+}
