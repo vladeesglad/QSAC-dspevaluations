@@ -1,0 +1,393 @@
+@istest
+
+
+public class testDSPevalEntryandController {
+
+
+    
+    public static testMethod void testFormSubmission() {
+
+//  CREATE TEST OBJECTS /
+        
+        VanaHCM__location__c loc1 = new vanaHCM__location__c();
+        VanaHCM__location__c loc2 = new vanaHCM__location__c();
+        VanaHCM__location__c loc3 = new vanaHCM__location__c();
+        
+        loc1.VanaHCM__location_name__c = 'Astoria';
+        loc1.name = 'l1';
+        database.saveresult alocin = database.insert(loc1); 
+        
+        loc2.VanaHCM__location_name__c = 'Broadway';
+        loc2.name = 'l2';
+        database.saveresult blocin = database.insert(loc2);
+        
+        loc3.VanaHCM__location_name__c = 'Manhattan';
+        loc3.name = 'l3';
+        database.saveresult mlocin = database.insert(loc3);
+        
+        VanaHCM__Pay_Group__c qsacgroup = new VanaHCM__Pay_Group__c(name='QSAC', VanaHCM__Pay_Group_Description__c='this field is required');
+        insert(qsacgroup);
+        
+
+//      BUILD WC CODE 
+//   
+                    
+  
+        VanaHCM__Worker_Compensation_Code__c newcode = new VanaHCM__Worker_Compensation_Code__c();
+        newcode.name = 'NY Office';
+        
+        database.saveresult wccodeid = database.insert(newcode);  
+        
+//      QUERY USERS FOR IDS AND NAMES        
+        
+        list <user> testu = new list <user>([SELECT id, profile.name, isActive, name FROM user WHERE isActive = true 
+                                             AND profile.name = 'System Administrator' LIMIT 2]);
+        
+        list <user> testu2 = new list <user>([SELECT id, profile.name, isActive, name FROM user WHERE isActive = true 
+                                             AND profile.name = 'QSAC Standard User' LIMIT 7]);
+        
+        
+
+        string first1name = testu[0].name.substringbeforelast(' ');
+        string last1name = testu[0].name.substringafterlast(' ');
+        string first2name = testu[1].name.substringbeforelast(' ');
+        string last2name = testu[1].name.substringafterlast(' ');
+        
+        
+        
+        
+        date temphiredate = date.today() -274;
+        
+        //      
+        //      BUILD WORKERS WITH USER LOOKUPS AND LOCATIONS... FIRST ONE IS MANAGER, SECOND IS SUBORDINATE... MANAGER REQUIRES A PERSON LOOKUP OBJECT....
+        //      
+        //                      
+        
+        VanaHCM__worker__c twkr1 = new VanaHCM__worker__c(name = testu[0].name, VanaHCM__Worker_type_worker__c = 'Full Time Non-Union',
+                           Location_1_Name__c = '26-HOLLIS B.E.', VanaHCM__Worker_Comp_Code__c = wccodeid.getid(),
+                           VanaHCM__EEO_Class__c = 'Technicians', VanaHCM__Ethnicity__c = 'Multi', VanaHCM__I_9_Status__c = 'US Citizen',
+                           Source_Detail__c = 'xyz', VanaHCM__Source__c = 'Other', Holiday_Class__c = 'Immediate (FT Other)',
+                           PPD_Status__c = 'Compliant', VanaHCM__Marital_Status__c = 'Single', VanaHCM__Date_of_Birth__c = temphiredate -2000,
+                           VanaHCM__Hire_Date__c = temphiredate, VanaHCM__user__c = testu[0].id, VanaHCM__External_Worker_ID__c = 'abc',
+                           VanaHCM__badge__c = 'defgh', VanaHCM__Location_Person__c = mlocin.getid(), job_title__c = 'Director',
+                           VanaHCM__first_name__c = first1name, VanaHCM__last_name__c = last1name, social_security_number__c = '777-88-9900');
+        
+        database.saveresult mgrid = database.insert(twkr1);
+        
+        list <VanaHCM__worker_sub__c> mgrlookup = new list <VanaHCM__worker_sub__c>([SELECT id from VanaHCM__worker_sub__c WHERE 
+                                                                                     VanaHCM__worker__c = :mgrid.getid() LIMIT 1]) ;
+        
+        string mgrpersonid = mgrlookup[0].id;
+        
+        
+        VanaHCM__worker__c twkr2 = new VanaHCM__worker__c(name = testu[1].name, VanaHCM__Worker_type_worker__c = 'Full Time Non-Union',
+                                                          Location_1_Name__c = '26-HOLLIS B.E.', VanaHCM__Worker_Comp_Code__c = wccodeid.getid(),
+                                                          VanaHCM__EEO_Class__c = 'Technicians', VanaHCM__Ethnicity__c = 'Multi', VanaHCM__I_9_Status__c = 'US Citizen',
+                                                          Source_Detail__c = 'xyz', VanaHCM__Source__c = 'Other', Holiday_Class__c = 'Immediate (FT Other)',
+                                                          PPD_Status__c = 'Compliant', VanaHCM__Marital_Status__c = 'Single', VanaHCM__Date_of_Birth__c = temphiredate -2000,
+                                                          VanaHCM__Hire_Date__c = temphiredate-300, VanaHCM__user__c = testu[1].id, VanaHCM__External_Worker_ID__c = 'abc',
+                                                          VanaHCM__badge__c = 'efghi', VanaHCM__Location_Person__c = blocin.getid(), job_title__c = 'Respite Worker',
+                                                          VanaHCM__Manager__c = mgrpersonid, VanaHCM__first_name__c = first2name, VanaHCM__last_name__c = last2name,
+                                                          social_security_number__c = '777-88-9990');        
+        
+        database.saveresult wrkrid = database.insert(twkr2);
+        
+        system.debug(mgrid.getid());
+        system.debug(wrkrid.getid());
+        
+        dsp_eval__c ratem = new dsp_eval__c(Employee_eval_subject__c= wrkrid.getid(), mgr_evaluator__c= mgrid.getid());
+        
+        insert ratem;
+        
+        
+        dsp_eval__c onerecord = new dsp_eval__c();
+        
+        
+        string getfields = queryallfields.dspevals();
+        string searchname1 = ''; // firstname2
+        string searchname2 = ''; // lastname2
+        string qstring = 'SELECT ';
+        qstring += getfields + ' FROM dsp_eval__c WHERE last_name__c = :last2name AND first_name__c = :first2name LIMIT 1';
+        
+        onerecord = database.query(qstring);
+        
+        
+        Test.startTest();   
+        
+        
+        
+        pageReference pageRef = new PageReference('/DSPeval001?scontrolCaching=1&id='+onerecord.id);
+        test.setcurrentPage(pageref);
+        
+        apexPages.standardController evaluation = new ApexPages.standardController(onerecord);
+        
+        DSPEvaluationEntryControllerExt dspv = new DSPEvaluationEntryControllerExt(evaluation);
+        
+        string a = onerecord.xva1__c;
+        
+        dspv.seta1('1');
+        dspv.seta2('1');
+        dspv.setb1('1');
+        dspv.setb2('1');
+        dspv.setb3('1');
+        dspv.setb4('1');
+        dspv.setb5('1');
+        dspv.setc1('1');
+        dspv.setc2('1');
+        dspv.setc3('1');
+        dspv.setc4('1' );
+        dspv.setc5('1');
+        dspv.setd1('1');
+        dspv.setd2('1');
+        dspv.setd3('1');
+        dspv.sete1('1');
+        dspv.sete2('1');
+        dspv.setf1('1');
+        dspv.setf2('1');
+        dspv.setf3('1');
+        dspv.setg1('1');
+        dspv.setg2('1');
+        dspv.setg3('1');
+        dspv.setg4('1');
+        dspv.seth1('1');
+        dspv.seti1('1');
+        dspv.setj1('1');
+        dspv.setj2('1');
+        dspv.setk1('1');
+        dspv.setl1('1');
+        dspv.setl2('1');
+        dspv.setl3('1');
+        dspv.setm1('1');
+        dspv.setm2('1');
+        dspv.setm3('1');
+        dspv.setn1('1');
+        dspv.seto1('1');
+        dspv.seto2('1');
+        dspv.seto3('1');
+        dspv.setp1('1');
+        dspv.setp2('1');
+        dspv.setp3('1');
+        dspv.setp4('1');
+        dspv.setp5('1');
+        dspv.setp6('1');
+        dspv.setp7('1');
+        dspv.setq1('1');
+        dspv.setq2('1');
+        dspv.setq3('1');
+        dspv.setr1('1');
+        dspv.setr2('1');
+        dspv.sets1('1');
+        dspv.sets2('1');
+        dspv.sett1('1');
+        dspv.setu1('1');
+        dspv.setu2('1');
+        dspv.setv1('1');
+        dspv.setw1('1');
+        dspv.setw2('1');
+        dspv.setw3('1');
+        
+        
+        
+        
+        
+        dspv.updaterecord();
+        
+        system.debug(dspv.getFilledRow());
+        system.debug(dspv.getpbgrd());
+        system.debug(dspv.getcommentline());
+        
+        
+        
+        
+        system.debug(dspv.geta2( ));
+        
+        
+        system.debug(dspv.getb1( ));
+        
+        
+        system.debug(dspv.getb2( ));
+        
+        
+        system.debug(dspv.getb3() );
+        
+        
+        system.debug(dspv.getb4( ));
+        
+        
+        system.debug(dspv.getb5( ));
+        
+        
+        system.debug(dspv.getc1() );
+        
+        
+        system.debug(dspv.getc2( ));
+        
+        
+        system.debug(dspv.getc3() );
+        
+        
+        system.debug(dspv.getc4() );
+        
+        
+        system.debug(dspv.getc5() );
+        
+        
+        system.debug(dspv.getd1() );
+        
+        
+        system.debug(dspv.getd2() );
+        
+        
+        system.debug(dspv.getd3() );
+        
+        
+        system.debug(dspv.gete1() );
+        
+        
+        system.debug(dspv.gete2() );
+        
+        
+        system.debug(dspv.getf1() );
+        
+        
+        system.debug(dspv.getf2() );
+        
+        
+        system.debug(dspv.getf3() );
+        
+        
+        system.debug(dspv.getg1() );
+        
+        
+        system.debug(dspv.getg2() );
+        
+        
+        system.debug(dspv.getg3() );
+        
+        
+        system.debug(dspv.getg4() );
+        
+        
+        system.debug(dspv.geth1() );
+        
+        
+        system.debug(dspv.geti1() );
+        
+        
+        system.debug(dspv.getj1() );
+        
+        
+        system.debug(dspv.getj2() );
+        
+        
+        system.debug(dspv.getk1() );
+        
+        
+        system.debug(dspv.getl1() );
+        
+        
+        system.debug(dspv.getl2() );
+        
+        
+        system.debug(dspv.getl3() );
+        
+        
+        system.debug(dspv.getm1() );
+        
+        
+        system.debug(dspv.getm2() );
+        
+        
+        system.debug(dspv.getm3() );
+        
+        
+        system.debug(dspv.getn1() );
+        
+        
+        system.debug(dspv.geto1() );
+        
+        
+        system.debug(dspv.geto2() );
+        
+        
+        system.debug(dspv.geto3() );
+        
+        
+        system.debug(dspv.getp1() );
+        
+        
+        system.debug(dspv.getp2() );
+        
+        
+        system.debug(dspv.getp3() );
+        
+        
+        system.debug(dspv.getp4() );
+        
+        
+        system.debug(dspv.getp5() );
+        
+        
+        system.debug(dspv.getp6() );
+        
+        
+        system.debug(dspv.getp7() );
+        
+        
+        system.debug(dspv.getq1() );
+        
+        
+        system.debug(dspv.getq2() );
+        
+        
+        system.debug(dspv.getq3() );
+        
+        
+        system.debug(dspv.getr1() );
+        
+        
+        system.debug(dspv.getr2() );
+        
+        
+        system.debug(dspv.gets1() );
+        
+        
+        system.debug(dspv.gets2() );
+        
+        
+        system.debug(dspv.gett1() );
+        
+        
+        system.debug(dspv.getu1() );
+        
+        
+        system.debug(dspv.getu2() );
+        
+        
+        system.debug(dspv.getv1() );
+        
+        
+        system.debug(dspv.getw1() );
+        
+        
+        system.debug(dspv.getw2() );
+        
+        system.debug(dspv.getw3() );
+        
+        onerecord.clear();
+        
+        onerecord = database.query(qstring);
+        
+        string b = onerecord.xva1__c;
+
+        system.assertnotequals(a,b);
+        
+        apexPages.standardController evaluation2 = new ApexPages.standardController(onerecord);
+        
+        DSPEvaluationEntryControllerExt dspv2 = new DSPEvaluationEntryControllerExt(evaluation2);        
+ 
+        Test.stopTest();   
+        
+    }
+
+}
