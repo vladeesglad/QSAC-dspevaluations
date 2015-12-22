@@ -1,0 +1,637 @@
+public class DSPEvaluationEntryControllerExt {
+    
+    public dsp_eval__c thisrecord {get;set;}
+    
+    public ApexPages.standardController rts;
+    
+    public string dspid = '';
+    
+    list <dsp_eval__c> updatelist = new list <dsp_eval__c>();    
+    
+//	THIS METHOD GETS USER SELECTABLE COLORS FOR THE FORM TO BE RENDERED    
+
+    queryAllFields getcolors = new queryAllFields();
+    map <string, string> colorpairs = getcolors.getcolors('DSP evaluation');
+     
+
+
+	private string pbgrd = '#ffffff';	
+	
+    private string filledrow = '#cccccc';
+    
+    private string commentline = '#d8d8d8';
+    
+    private string button = '#ccffcc';
+    
+
+    
+    public string getpbgrd() {
+        if (!string.isblank(colorpairs.get('paragraph'))) {
+            pbgrd = colorpairs.get('paragraph');
+        }
+        
+        return pbgrd; 
+    }
+    
+    public string getfilledrow() { 
+//        if (!string.isblank(colorpairs.get('filled row'))) {
+//            filledrow = colorpairs.get('filled row');
+ //       }        
+        return filledrow;
+    }
+    
+    public string getcommentline() { 
+        if (!string.isblank(colorpairs.get('comment line'))) {
+            commentline = colorpairs.get('comment line');
+        }        
+        return commentline;
+    }
+    
+    public string getbutton() {
+        if (!string.isblank(colorpairs.get('button'))) {
+            pbgrd = colorpairs.get('button');
+        }
+        return button;
+    }
+    
+
+    private string a1 = 'x';
+    private string a2 = 'x';
+    private string b1 = 'x';
+    private string b2 = 'x';
+    private string b3 = 'x';
+    private string b4 = 'x';
+    private string b5 = 'x';   
+    private string c1 = 'x';
+    private string c2 = 'x';
+    private string c3 = 'x';
+    private string c4 = 'x';
+    private string c5 = 'x';
+    private string d1 = 'x';
+    private string d2 = 'x';
+    private string d3 = 'x';
+    private string e1 = 'x';
+    private string e2 = 'x';
+    private string f1 = 'x';
+    private string f2 = 'x';
+    private string f3 = 'x';
+    private string g1 = 'x';
+    private string g2 = 'x';
+    private string g3 = 'x';
+    private string g4 = 'x'; 
+    private string h1 = 'x';
+    private string i1 = 'x';
+    private string j1 = 'x';
+    private string j2 = 'x';
+    private string k1 = 'x';
+    private string l1 = 'x';
+    private string l2 = 'x';
+    private string l3 = 'x';
+    private string m1 = 'x';
+    private string m2 = 'x';
+    private string m3 = 'x';
+    private string n1 = 'x';
+    private string o1 = 'x';
+    private string o2 = 'x';
+    private string o3 = 'x';
+    private string p1 = 'x';
+    private string p2 = 'x';
+    private string p3 = 'x';
+    private string p4 = 'x';
+    private string p5 = 'x';
+    private string p6 = 'x';
+    private string p7 = 'x';
+    private string q1 = 'x';
+    private string q2 = 'x';
+    private string q3 = 'x';
+    private string r1 = 'x';
+    private string r2 = 'x';
+    private string s1 = 'x';
+    private string s2 = 'x';
+    private string t1 = 'x';
+    private string u1 = 'x';
+    private string u2 = 'x';
+    private string v1 = 'x';
+    private string w1 = 'x';
+    private string w2 = 'x';
+    private string w3 = 'x';
+
+
+    
+    
+    
+//  THESE FOLLOWING TWO SELECTOPTION LISTS FOR THE VF PAGE ARE BUILT HERE    
+
+  
+    public list<SelectOption> getItems1 () {
+        List<SelectOption> options1 = new list <SelectOption>();
+        options1.add(new SelectOption ('2' , 'Exceeds'));
+        options1.add(new SelectOption ('1', 'Meets'));
+        options1.add(new SelectOption ('0', 'Does Not Meet'));
+        options1.add(new SelectOption ('X', 'Not Applicable'));
+        return options1;
+    }
+    
+    
+    public list<SelectOption> getItems2 () {
+        List<SelectOption> options2 = new list <SelectOption>();
+        options2.add(new SelectOption ('2' , 'Exceeds'));
+        options2.add(new SelectOption ('1', 'Meets'));
+        options2.add(new SelectOption ('0', 'Does Not Meet'));
+        return options2;
+    }    
+    
+
+    public void seta1(string a1   ) {  
+        this.a1  =  a1 ; 
+    }
+    
+    public void seta2(string a2  ) {  
+        this.a2  = a2  ;  
+    }
+    public void setb1(string b1  ) {  
+        this.b1  = b1  ;  
+    }
+    public void setb2(string b2  ) {
+        this.b2  = b2  ;  
+    }
+    public void setb3(string b3  ) {  
+        this.b3  =  b3 ;  
+    }
+    public void setb4(string b4  ) {
+        this.b4  =  b4 ;  
+    }
+    public void setb5(string b5  ) {
+        this.b5  = b5  ;  
+    }   
+    public void setc1(string c1) {  
+        this.c1= c1; 
+    }
+    public void setc2(string c2  ) {
+        this.c2  = c2  ;  
+    }
+    public void setc3(string c3  ) {
+        this.c3  =  c3 ;  
+    }
+    public void setc4(string c4  ) {
+        this.c4  =  c4 ;  
+    }
+    public void setc5(string c5  ) {
+        this.c5  = c5  ;  
+    }
+    public void setd1(string d1) { 
+        this.d1= d1;  
+    }
+    public void setd2(string d2) {
+        this.d2= d2;  
+    }
+    public void setd3(string d3) {
+        this.d3= d3; 
+    }
+    public void sete1(string e1) {
+        this.e1= e1; 
+    }
+    public void sete2(string e2) { 
+        this.e2= e2; 
+    }
+    public void setf1(string f1) {
+        this.f1= f1; 
+    }
+    public void setf2(string f2) {
+        this.f2= f2 ;
+    }
+    public void setf3(string f3) {
+        this.f3= f3;
+    }
+    public void setg1(string g1) {  
+        this.g1= g1; 
+    }
+    public void setg2(string g2) {
+        this.g2= g2;
+    }
+    public void setg3(string g3) {
+        this.g3= g3;
+    }
+    public void setg4(string g4) { 
+        this.g4= g4;
+    } 
+    public void seth1(string h1) {
+        this.h1= h1;
+    }
+    public void seti1(string i1) {
+        this.i1= i1;
+    }
+    public void setj1(string j1) {
+        this.j1= j1;
+    }
+    public void setj2(string j2) {
+        this.j2= j2;
+    }
+    public void setk1(string k1) {
+        this.k1= k1;
+    }
+    public void setl1(string l1) {
+        this.l1= l1;
+    }
+    public void setl2(string l2) {
+        this.l2= l2;
+    }
+    public void setl3(string l3) {
+        this.l3= l3;
+    }
+    public void setm1(string m1) {
+        this.m1= m1;
+    }
+    public void setm2(string m2) {
+        this.m2= m2;
+    }
+    public void setm3(string m3) {
+        this.m3= m3;
+    }
+    public void setn1(string n1) {
+        this.n1= n1;
+    }
+    public void seto1(string o1) {
+        this.o1= o1;
+    }
+    public void seto2(string o2) {
+        this.o2= o2;
+    }
+    public void seto3(string o3) {
+        this.o3= o3;
+    }
+    public void setp1(string p1) {
+        this.p1= p1;
+    }
+    public void setp2(string p2) {
+        this.p2= p2;
+    }
+    public void setp3(string p3) {
+        this.p3= p3;
+    }
+    public void setp4(string p4) {
+        this.p4= p4;
+    }
+    public void setp5(string p5) {
+        this.p5= p5;
+    }
+    public void setp6(string p6) {
+        this.p6= p6;
+    }
+    public void setp7(string p7) {
+        this.p7= p7;
+    }
+    public void setq1(string q1) {
+        this.q1= q1;
+    }
+    public void setq2(string q2) {
+        this.q2= q2;
+    }
+    public void setq3(string q3) {
+        this.q3= q3;
+    }
+    public void setr1(string r1) {
+        this.r1= r1;
+    }
+    public void setr2(string r2) {
+        this.r2= r2;
+    }
+    public void sets1(string s1) {
+        this.s1= s1;
+    }
+    public void sets2(string s2) {
+        this.s2= s2;
+    }
+    public void sett1(string t1) {
+        this.t1= t1;
+    }
+    public void setu1(string u1) {
+        this.u1= u1;
+    }
+    public void setu2(string u2) {
+        this.u2= u2;
+    }
+    public void setv1(string v1) {
+        this.v1= v1;
+    }
+    public void setw1(string w1) {
+        this.w1= w1;
+    }
+    public void setw2(string w2) {
+        this.w2= w2;
+    }
+    public void setw3(string w3) {
+        this.w3= w3;
+    }
+       
+    
+    
+    public string geta1( ) {  
+        return a1  ; 
+    }
+    public string geta2( ) {  
+        return a2  ;  
+    }
+    public string getb1( ) {  
+        return b1 ;  
+    }
+    public string getb2( ) {
+        return b2 ;  
+    }
+    public string getb3() {  
+        return b3 ;  
+    }
+    public string getb4( ) {
+        return b4 ;  
+    }
+    public string getb5( ) {
+        return b5 ;  
+    }   
+    public string getc1() {  
+        return c1; 
+    }
+    public string getc2( ) {
+        return c2  ;  
+    }
+    public string getc3() {
+        return c3 ;  
+    }
+    public string getc4() {
+        return c4 ;  
+    }
+    public string getc5() {
+        return c5 ;  
+    }
+    public string getd1() { 
+        return d1;  
+    }
+    public string getd2() {
+        return d2;  
+    }
+    public string getd3() {
+        return d3; 
+    }
+    public string gete1() {
+        return e1; 
+    }
+    public string gete2() { 
+        return e2; 
+    }
+    public string getf1() {
+        return f1; 
+    }
+    public string getf2() {
+        return f2;
+    }
+    public string getf3() {
+        return f3;
+    }
+    public string getg1() {  
+        return g1; 
+    }
+    public string getg2() {
+        return g2;
+    }
+    public string getg3() {
+        return g3;
+    }
+    public string getg4() { 
+        return g4;
+    } 
+    public string geth1() {
+        return h1;
+    }
+    public string geti1() {
+        return i1;
+    }
+    public string getj1() {
+        return j1;
+    }
+    public string getj2() {
+        return j2;
+    }
+    public string getk1() {
+        return k1;
+    }
+    public string getl1() {
+        return l1;
+    }
+    public string getl2() {
+        return l2;
+    }
+    public string getl3() {
+        return l3;
+    }
+    public string getm1() {
+        return m1;
+    }
+    public string getm2() {
+        return m2;
+    }
+    public string getm3() {
+        return m3;
+    }
+    public string getn1() {
+        return n1;
+    }
+    public string geto1() {
+        return o1;
+    }
+    public string geto2() {
+        return o2;
+    }
+    public string geto3() {
+        return o3;
+    }
+    public string getp1() {
+        return p1;
+    }
+    public string getp2() {
+        return p2;
+    }
+    public string getp3() {
+        return p3;
+    }
+    public string getp4() {
+        return p4;
+    }
+    public string getp5() {
+        return p5;
+    }
+    public string getp6() {
+        return p6;
+    }
+    public string getp7() {
+        return p7;
+    }
+    public string getq1() {
+        return q1;
+    }
+    public string getq2() {
+        return q2;
+    }
+    public string getq3() {
+        return q3;
+    }
+    public string getr1() {
+        return r1;
+    }
+    public string getr2() {
+        return r2;
+    }
+    public string gets1() {
+        return s1;
+    }
+    public string gets2() {
+        return s2;
+    }
+    public string gett1() {
+        return t1;
+    }
+    public string getu1() {
+        return u1;
+    }
+    public string getu2() {
+        return u2;
+    }
+    public string getv1() {
+        return v1;
+    }
+    public string getw1() {
+        return w1;
+    }
+    public string getw2() {
+        return w2;
+    }
+    public string getw3() {
+        return w3;
+    }
+       
+   
+    public string Acomm {get;set;}
+    public string Bcomm {get;set;}
+    public string Ccomm {get;set;}
+    public string Dcomm {get;set;}    
+    public string Ecomm {get;set;}
+    public string Fcomm {get;set;}     
+    public string Gcomm {get;set;} 
+    public string Hcomm {get;set;} 
+    public string Icomm {get;set;} 
+    public string Jcomm {get;set;}       
+    public string Kcomm {get;set;}   
+    public string Lcomm {get;set;}  
+    public string Mcomm {get;set;} 
+    public string Ncomm {get;set;}  
+    public string Ocomm {get;set;} 
+    public string Pcomm {get;set;} 
+    public string Qcomm {get;set;}
+    public string Rcomm {get;set;}  
+    public string Scomm {get;set;}    
+    public string Tcomm {get;set;}  
+    public string Ucomm {get;set;}   
+    public string Vcomm {get;set;}     
+    public string Wcomm {get;set;} 
+    
+
+    public string strengths {get;set;} 
+    public string improve {get;set;} 
+    public string addressednot {get;set;} 
+    public string emplplan {get;set;}
+
+
+    public DSPEvaluationEntryControllerExt (apexPages.StandardController controller)  {
+        this.thisrecord = (DSP_eval__c)controller.getrecord();
+        rts = controller;
+        dspid = thisrecord.id;
+        system.debug(dspid);
+        
+      
+        
+    }  
+    
+    
+    public pageReference updateRecord() {
+        
+        
+        
+        dsp_eval__c changed = new dsp_eval__c();
+        
+        changed = thisrecord;
+        
+        if (a1!=null) { changed.xva1__c = a1;}
+        if (a2!=null) { changed.xva2__c = a2;}
+        if (b1!=null) { changed.xvb1__c = b1;}  
+        if (b2!=null) { changed.xvb2__c = b2;}
+        if (b3!=null) { changed.xvb3__c = b3;}
+        if (b4!=null) { changed.xvb4__c = b4;}
+        if (b5!=null) { changed.xvb5__c = b5;}
+        if (c1!=null) { changed.xvc1__c = c1;}
+        if (c2!=null) { changed.xvc2__c = c2;}
+        if (c3!=null) { changed.xvc3__c = c3;}
+        if (c4!=null) { changed.xvc4__c = c4;}
+        if (c5!=null) { changed.xvc5__c = c5;}
+        if (d1!=null) { changed.xvd1__c = d1;}
+        if (d2!=null) { changed.xvd2__c = d2;}
+        if (d3!=null) { changed.xvd3__c = d3;}
+        if (e1!=null) { changed.xve1__c = e1;}
+        if (e2!=null) { changed.xve2__c = e2;}
+        if (f1!=null) { changed.xvf1__c = f1;}
+        if (f2!=null) { changed.xvf2__c = f2;}
+        if (f3!=null) { changed.xvf3__c = f3;}
+        if (g1!=null) { changed.xvg1__c = g1;}
+        if (g2!=null) { changed.xvg2__c = g2;}
+        if (g3!=null) { changed.xvg3__c = g3;}
+        if (g4!=null) { changed.xvg4__c = g4;}
+        if (h1!=null) { changed.xvh1__c = h1;}
+        if (i1!=null) { changed.xvi1__c = i1;}
+        if (j1!=null) { changed.xvj1__c = j1;}
+        if (j2!=null) { changed.xvj2__c = j2;}
+        if (k1!=null) { changed.xvk1__c = k1;}
+        if (l1!=null) { changed.xvl1__c = l1;}
+        if (l2!=null) { changed.xvl2__c = l2;}
+        if (l3!=null) { changed.xvl3__c = l3;}
+        if (m1!=null) { changed.xvm1__c = m1;}
+        if (m2!=null) { changed.xvm2__c = m2;}
+        if (m3!=null) { changed.xvm3__c = m3;}
+        if (n1!=null) { changed.xvn1__c = n1;}
+        if (o1!=null) { changed.xvo1__c = o1;}
+        if (o2!=null) { changed.xvo2__c = o2;}
+        if (o3!=null) { changed.xvo3__c = o3;}
+        if (p1!=null) { changed.xvp1__c = p1;}
+        if (p2!=null) { changed.xvp2__c = p2;}
+        if (p3!=null) { changed.xvp3__c = p3;}
+        if (p4!=null) { changed.xvp4__c = p4;}
+        if (p5!=null) { changed.xvp5__c = p5;}
+        if (p6!=null) { changed.xvp6__c = p6;}
+        if (p7!=null) { changed.xvp7__c = p7;}
+        if (q1!=null) { changed.xvq1__c = q1;}
+        if (q2!=null) { changed.xvq2__c = q2;}
+        if (q3!=null) { changed.xvq3__c = q3;}
+        if (r1!=null) { changed.xvr1__c = r1;}
+        if (r2!=null) { changed.xvr2__c = r2;}
+        if (s1!=null) { changed.xvs1__c = s1;}
+        if (s2!=null) { changed.xvs2__c = s2;}
+        if (t1!=null) { changed.xvt1__c = t1;}
+        if (u1!=null) { changed.xvu1__c = u1;}
+        if (u2!=null) { changed.xvu2__c = u2;}
+        if (v1!=null) { changed.xvv1__c = v1;}
+        if (w1!=null) { changed.xvw1__c = w1;}
+        if (w2!=null) { changed.xvw2__c = w2;}
+        if (w3!=null) { changed.xvw3__c = w3;}
+        
+        updatelist.add(changed);
+        
+        if (!updatelist.isempty()) {
+            update updatelist;
+        }
+        
+        updatelist.clear();         
+
+        return null;
+    } 
+    
+
+    
+    
+
+}
