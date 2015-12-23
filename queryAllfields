@@ -32,21 +32,23 @@ public class queryAllFields {
         
         return expr;
     }
-    
+   
+//	var 'search' sets a pointer / filter value, to be used in database query below, to fetch field values from a 
+//	particular record -this query will ultimately return a list of color values for a particular VF page 
+//	implementation related to an sObject (could be particularized to a specific manifestation of an sObject 
+//	record...) in this case, by using metaDataTypes, changes in the appearance of VF pages can be done 
+//	on the fly by using maps 'get' method and NOT by embedding static css values in apex or VF, but by putting them, 
+//	in effect, in the mdt object --
+//	YES... you could do this by creating a static resource stylesheet but this is mostly impenetrable; 
+//	and opens the possiblity of a multitude of errors being transmitted to the stylesheet;
+//	containing this editing resource in the .mdt permits constraint on what can be edited, in this case, just colors
+//	and allows for the possibilty of edits being easily conducted by non-programmers;
+//	NOTE: best practice here would include non-editable default values in the .mdt record in the event that
+//	users erroroneously enter values that will not render; since .mdt record contain no validations
+//	these validations would be included in the apex code (haven't done that here...)
     
     public map <string, string> getcolors (string MLabel) {
         map <string, string> vprs =  new map <string, string>();       
-
-//			'search' sets a pointer / filter value, to be used in database query below, to fetch field values from a particular record - 
-//			this query will ultimately return a list of color values for a particular VF page implementation related to a sObject 
-//			(could be particularized to a specific manifestation of an sObject record...)
-//			in this case, by using metaDataTypes, changes in the appearance of VF pages can be done on the fly by NOT embedding static css values
-//			in apex, but by putting them, in effect, in the mdt object --
-//			sure, you could do this by creating a static resource "stylesheet" but this is mostly impenetrable to many; and opens the 
-//			possiblity of a multitude of errors;
-//			containing this editing resource in the .mdt permits constraint on what can be edited, in this case, just colors
-//			
-		
 			      
         string search = MLabel;
         system.debug(search);
