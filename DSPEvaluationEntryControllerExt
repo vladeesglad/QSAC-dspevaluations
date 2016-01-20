@@ -13,8 +13,6 @@ public class DSPEvaluationEntryControllerExt {
     queryAllFields getcolors = new queryAllFields();
     map <string, string> colorpairs = getcolors.getcolors('DSP evaluation');
      
-
-
 	private string pbgrd = '#ffffff';	
 	
     private string filledrow = '#cccccc';
@@ -22,9 +20,7 @@ public class DSPEvaluationEntryControllerExt {
     private string commentline = '#d8d8d8';
     
     private string button = '#ccffcc';
-    
 
-    
     public string getpbgrd() {
         if (!string.isblank(colorpairs.get('paragraph'))) {
             pbgrd = colorpairs.get('paragraph');
@@ -34,9 +30,8 @@ public class DSPEvaluationEntryControllerExt {
     }
     
     public string getfilledrow() { 
-//        if (!string.isblank(colorpairs.get('filled row'))) {
-//            filledrow = colorpairs.get('filled row');
- //       }        
+    filledrow = colorpairs.get('filled row');
+      
         return filledrow;
     }
     
@@ -117,10 +112,29 @@ public class DSPEvaluationEntryControllerExt {
     private string w3 = 'x';
 
 
+//  THESE FOLLOWING TWO SELECTOPTION LISTS FOR THE INITIAL EVALUATION PAGE ARE BUILT HERE    
+
+  
+    public list<SelectOption> getItems1i () {
+        List<SelectOption> options1 = new list <SelectOption>();
+        options1.add(new SelectOption ('1' , 'Meets Standard'));
+        options1.add(new SelectOption ('5', 'Making Progress'));
+        options1.add(new SelectOption ('0', 'Does Not Meet'));
+        options1.add(new SelectOption ('X', 'Not Applicable'));
+        return options1;
+    }
     
     
+    public list<SelectOption> getItems2i () {
+        List<SelectOption> options2 = new list <SelectOption>();
+        options2.add(new SelectOption ('1' , 'Meets Standard'));
+        options2.add(new SelectOption ('5', 'Making Progress'));
+        options2.add(new SelectOption ('0', 'Does Not Meet'));
+        return options2;
+    }    
     
-//  THESE FOLLOWING TWO SELECTOPTION LISTS FOR THE VF PAGE ARE BUILT HERE    
+
+//  THESE FOLLOWING TWO SELECTOPTION LISTS FOR THE ANNUAL EVALUATION PAGE ARE BUILT HERE    
 
   
     public list<SelectOption> getItems1 () {
@@ -508,7 +522,16 @@ public class DSPEvaluationEntryControllerExt {
     }
        
    
-    public string Acomm {get;set;}
+    public string Acomm;
+    public void setAcomm () {
+        this.Acomm = Acomm;
+    }
+    
+    public string getAcomm () {
+        return Acomm;
+    }
+    
+    
     public string Bcomm {get;set;}
     public string Ccomm {get;set;}
     public string Dcomm {get;set;}    
@@ -553,6 +576,12 @@ public class DSPEvaluationEntryControllerExt {
     public pageReference updateRecord() {
         
         
+        //	SET VALUES FOR CERTAIN FIELDS HERE FOR THE INITIAL EVAL... Xs FOR OMITTED QUESTIONS, BECAUSE THE PAGE WILL 
+        //	NEVER RETURN A VALUE
+        
+        if (thisrecord.is_initial__c) {            
+            b3 = 'X';  b4 = 'X';  b5 = 'X';  c4 = 'X';  c5 = 'X';  d2 = 'X';  d3 = 'X';
+        }
         
         dsp_eval__c changed = new dsp_eval__c();
         
@@ -620,6 +649,36 @@ public class DSPEvaluationEntryControllerExt {
         if (w3!=null) { changed.xvw3__c = w3;}
         
         updatelist.add(changed);
+        
+        
+        
+        
+        
+  /*              
+        updatelist.add(new dsp_eval__c(id=dspid, xvAcomm__c = Acomm,  xvBcomm__c = Bcomm,  xvCcomm__c = Ccomm,  
+                                       xvDcomm__c = Dcomm,  xvEcomm__c = Ecomm, xvEmployeePlan__c = EmplPlan,  
+                                       xvFcomm__c = Fcomm,  xvGcomm__c = Gcomm,  xvHcomm__c = Hcomm,  xvIcomm__c = Icomm,  
+                                       xvImprove__c = Improve, xvJcomm__c = Jcomm,  xvKcomm__c = Kcomm,  xvLcomm__c = Lcomm,  
+                                       xvMcomm__c = Mcomm,  xvNcomm__c = Ncomm,  xvNotAddressed__c = Addressednot,  
+                                       xvOcomm__c = Ocomm,  xvPcomm__c = Pcomm,  xvQcomm__c = Qcomm,  xvRcomm__c = Rcomm,  
+                                       xvScomm__c = Scomm,  xvStrengths__c = Strengths, xvTcomm__c = Tcomm,  
+                                       xvUcomm__c = Ucomm,  xvVcomm__c = Vcomm,  xvWcomm__c = Wcomm,  xva1__c = a1,  
+                                       xva2__c = a2, xvb1__c = b1,  xvb2__c = b2,  xvb3__c = b3,  xvb4__c = b4,  
+                                       xvb5__c = b5,  xvc1__c = c1,  xvc2__c = c2,  xvc3__c = c3,  
+                                       xvc4__c = c4,  xvc5__c = c5,  xvd1__c = d1,  xvd2__c = d2,  xvd3__c = d3,  
+                                       xve1__c = e1,  xve2__c = e2,  xvf1__c = f1,  xvf2__c = f2,  
+                                       xvf3__c = f3,  xvg1__c = g1, xvg2__c = g2,  xvg3__c = g3,  xvg4__c = g4,  
+                                       xvh1__c = h1, xvi1__c = i1,  xvj1__c = j1,  xvj2__c = j2,  xvk1__c = k1,  
+                                       xvl1__c = l1,  xvl2__c = l2,  xvl3__c = l3,  xvm1__c = m1,  
+                                       xvm2__c = m2,  xvm3__c = m3, xvn1__c = n1,  
+                                       xvo1__c = o1,  xvo2__c = o2,  xvo3__c = o3,  xvp1__c = p1, 
+                                       xvp2__c = p2,  xvp3__c = p3,  xvp4__c = p4,  xvp5__c = p5,  
+                                       xvp6__c = p6,  xvp7__c = p7,  xvq1__c = q1,  xvq2__c = q2,  
+                                       xvq3__c = q3,  xvr1__c = r1,  xvr2__c = r2,  xvs1__c = s1,  
+                                       xvs2__c = s2,  xvt1__c = t1,  xvu1__c = u1,  xvu2__c = u2,  
+                                       xvv1__c = v1,  xvw1__c = w1,  xvw2__c = w2,  xvw3__c = w3));
+
+*/
         
         if (!updatelist.isempty()) {
             update updatelist;
