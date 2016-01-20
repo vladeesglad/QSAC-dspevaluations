@@ -131,13 +131,24 @@
 
     <apex:image styleclass="image" url="{!$Resource.QSACLogo}" height="75"> </apex:image><br/> 
             
-    
+<div style="text-align: center; margin:0 auto">    
 
+<apex:sectionHeader rendered="{!!DSP_Eval__c.is_initial__c}">
 
-<div style="text-align: center; margin:0 auto">
     <h1 style="text-align:center; font-size: 18px;">DSP Annual Performance Evaluation - Core Competencies<br/></h1>
+</apex:sectionHeader>
+
+<apex:sectionHeader rendered="{!DSP_Eval__c.is_initial__c}">
+
+    <h1 style="text-align:center; font-size: 18px;">DSP Initial Performance Evaluation - Core Competencies<br/></h1>
+</apex:sectionHeader>    
+    
     <br/>
     <br/>
+    
+  
+    
+    
     
     
     
@@ -152,9 +163,1103 @@
         <tr style="text-align: left"><td colspan="2" style="text-indent:40px;font-weight:bold">Supervisor:</td>
             <td colspan="2" style="text-indent:40px;font-weight:bold">{!DSP_Eval__c.Mgr_Evaluator__r.Name}</td></tr>
     </table>
+ 
+        
+
+
+
+
+     <apex:form rendered="{!DSP_Eval__c.is_initial__c}" >
+         
+         <br/>        
+         <apex:commandButton value="SAVE / UPDATE" action="{!updateRecord}" style="background: {!button};" />
+         <br/><br/>
+         
+         
+         
+        <!-- START GOAL SECTION HERE...... GOAL ONE -->
+        
+        
+        <table border="1" cellspacing="0" width="90%" align="center" columns="9">
+            
+            <tr class="ph"><td colspan="8" style="text-align:left;text-indent:50px;font-weight:bold">SKILL</td></tr>
+  
+            <tr class="hh"><td colspan="8" style="text-align:left;text-indent:10px;color:white;background-color:black;padding:8px">Goal 1: Putting People First</td></tr>
+            
+            <!-- SECTION HEADER STARTS HERE  -->
+            
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:220px;font-weight:bold;border-style:solid solid hidden solid">Competency Area A: </td></tr>
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:200px;font-weight:bold;border-style:hidden solid solid solid">Supporting a Person's unique capacities, personality and potential. </td></tr>
+            
+            
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xva1__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xva1__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td>
+                <td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 1: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Demonstrates respect for all individuals being supported</td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!a1}">
+                        <apex:selectOptions value="{!items2i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION -->           
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xva2__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xva2__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 2: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Demonstrates support for individual choice-making in order to enhance confidence and assertiveness </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!a2}">
+                        <apex:selectOptions value="{!items2i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION -->
+           <!--  COMMENT LINE --> 
+                
+            <tr class="line2"><td colspan="2" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid hidden solid solid">Comments:</td>
+                <td colspan="6" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid solid solid hidden">
+                    <apex:inputField value="{!DSP_Eval__c.xvAcomm__c}" style="width: 70% !important;" /></td>      
+            </tr>        
+
+            <!-- SECTION HEADER -->
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:220px;font-weight:bold;border-style:solid solid hidden solid">Competency Area B: </td></tr>
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:200px;font-weight:bold;border-style:hidden solid solid solid">Getting to know the person through assessment/discovery</td></tr>
+            
+            
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvb1__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvb1__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 1: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Evaluates the ways in which past and current events, and environmental factors affect the way the person acts/reacts to others          
+                </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!b1}">
+                        <apex:selectOptions value="{!items2i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION -->                   
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvb2__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvb2__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 2: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Using a holistic approach participates in the individual's life planning activities and assists in their implementation         
+                    
+                </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!b2}">
+                        <apex:selectOptions value="{!items1i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION --> 
+      
+ 
+           <!--  COMMENT LINE -->
+                
+            <tr class="line2"><td colspan="2" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid hidden solid solid">Comments:</td>
+                <td colspan="6" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid solid solid hidden">
+                    <apex:inputField value="{!DSP_Eval__c.xvBcomm__c}" style="width: 70% !important;" /></td>      
+            </tr>                   
+            
+
+            <!-- SECTION HEADER AREA C -->
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:220px;font-weight:bold;border-style:solid solid hidden solid">Competency Area C: </td></tr>
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:200px;font-weight:bold;border-style:hidden solid solid solid">Promoting Advocacy with the Individual</td></tr>
+            
+            
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvc1__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvc1__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 1: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Seeks information on the range of services available to individuals with developmental disabilities         
+            
+                </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!c1}">
+                        <apex:selectOptions value="{!items1i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION -->                   
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvc2__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvc2__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 2: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Provides opportunities for the individual to be a self-advocate         
+                
+                </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!c2}">
+                        <apex:selectOptions value="{!items2i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION --> 
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvc3__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvc3__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 3: </td>
+            <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Performs advocate responsibilities while demonstrating respect for the processes and people involved.           
+    
+                
+            </td>
+            <td colspan="4" width="400px">
+                <apex:selectRadio value="{!c3}">
+                    <apex:selectOptions value="{!items2i}"/>         
+                </apex:selectRadio></td></tr>
+        <!-- END QUESTION -->      
+        
+           <!--  COMMENT LINE --> 
+   
+            <tr class="line2"><td colspan="2" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid hidden solid solid">Comments:</td>
+                <td colspan="6" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid solid solid hidden">
+                    <apex:inputField value="{!DSP_Eval__c.xvCcomm__c}" style="width: 70% !important;" /></td>      
+            </tr>                      
+            
+            <!-- SECTION HEADER AREA D -->
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:220px;font-weight:bold;border-style:solid solid hidden solid">Competency Area D: </td></tr>
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:200px;font-weight:bold;border-style:hidden solid solid solid">Facilitating Personal Growth and Development</td></tr>
+            
+            
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvd1__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvd1__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 1: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Demonstrates the ability to effectively teach skills to people supported            
+
+                </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!d1}">
+                        <apex:selectOptions value="{!items2i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION -->                   
+
+           <!--  COMMENT LINE --> 
+
+            <tr class="line2"><td colspan="2" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid hidden solid solid">Comments:</td>
+                <td colspan="6" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid solid solid hidden">
+                    <apex:inputField value="{!DSP_Eval__c.xvDcomm__c}" style="width: 70% !important;" /></td>      
+            </tr>           
+            
+            <!-- SECTION HEADER AREA E -->
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:220px;font-weight:bold;border-style:solid solid hidden solid">Competency Area E: </td></tr>
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:200px;font-weight:bold;border-style:hidden solid solid solid">Facilitation of Supports and Services</td></tr>
+            
+                       
+            
+            
+        <!-- START QUESTION -->        
+        <tr class="line" style="background-color:{!if(dsp_eval__c.xve1__c != null, '#e6e6e6', '#ffffff'  )}">
+            <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xve1__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+            SKILL 1: </td>
+            <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Assists in the development, implementation and on-going evaluation of service plans that are based on the individual's preferences, needs and interests         
+
+            </td>
+            <td colspan="4" width="400px">
+                <apex:selectRadio value="{!e1}">
+                    <apex:selectOptions value="{!items2i}"/>         
+                </apex:selectRadio></td></tr>
+        <!-- END QUESTION -->  
+        <!-- START QUESTION -->        
+        <tr class="line" style="background-color:{!if(dsp_eval__c.xve2__c != null, '#e6e6e6', '#ffffff'  )}">
+            <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xve2__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+            SKILL 2: </td>
+            <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Continuously shares observations, insights, and recommendations with the individual and his/her support team            
+            </td>
+            <td colspan="4" width="400px">
+                <apex:selectRadio value="{!e2}">
+                    <apex:selectOptions value="{!items2i}"/>         
+                </apex:selectRadio></td></tr>
+            <!-- END QUESTION --> 
+           <!--  COMMENT LINE --> 
+                
+            <tr class="line2"><td colspan="2" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid hidden solid solid">Comments:</td>
+                <td colspan="6" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid solid solid hidden">
+                    <apex:inputField value="{!DSP_Eval__c.xvEcomm__c}" style="width: 70% !important;" /></td>      
+            </tr>        
+        </table>
+        <br/>
+         <br/>        
+         <apex:commandButton value="SAVE / UPDATE" action="{!updateRecord}" style="background: {!button};" />
+         <br/><br/>        
+        
+        
+        <!-- START GOAL SECTION HERE...... GOAL 2 -->
+        
+        
+        <table border="1" cellspacing="0" width="90%" align="center" columns="9">
+            
+            <tr class="ph"><td colspan="8" style="text-align:left;text-indent:50px;font-weight:bold">SKILL</td></tr>
+            
+            <tr class="hh"><td colspan="8" style="text-align:left;text-indent:10px;color:white;background-color:black">Goal 2: Building and Maintaining Positive Relationships</td></tr>
+            
+            <!-- SECTION HEADER STARTS HERE  -->
+            
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:220px;font-weight:bold;border-style:solid solid hidden solid">Competency Area F: </td></tr>
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:200px;font-weight:bold;border-style:hidden solid solid solid">Building and Maintaining Relationships </td></tr>
+            
+            
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvf1__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvf1__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 1: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Supports individuals to overcome barriers and challenges to establishing and maintaining a network of relationships and valued social roles         
+                </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!f1}">
+                        <apex:selectOptions value="{!items1i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION -->           
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvf2__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvf2__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 2: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Demonstrates the ability to identify the individual's personal strengths, interests and needed supports for community involvement           
+                </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!f2}">
+                        <apex:selectOptions value="{!items1i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION -->
+           <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvf3__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvf3__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 3: </td>
+            <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Demonstrates strategies to encourage and build the individual's self-confidence         
+    
+                
+            </td>
+            <td colspan="4" width="400px">
+                <apex:selectRadio value="{!f3}">
+                    <apex:selectOptions value="{!items2i}"/>         
+                </apex:selectRadio></td></tr>
+        <!-- END QUESTION -->              
+            
+            <!--  COMMENT LINE --> 
+                
+            <tr class="line2"><td colspan="2" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid hidden solid solid">Comments:</td>
+                <td colspan="6" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid solid solid hidden">
+                    <apex:inputField value="{!DSP_Eval__c.xvFcomm__c}" style="width: 70% !important;" /></td>      
+            </tr>        
+            
+            <!-- SECTION HEADER -->
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:220px;font-weight:bold;border-style:solid solid hidden solid">Competency Area G: </td></tr>
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:200px;font-weight:bold;border-style:hidden solid solid solid">Creating Meaningful Communication</td></tr>
+            
+            
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvg1__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvg1__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 1: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Uses a range of effective communication strategies and skills to establish a collaborative relationship with the person         
+            
+                </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!g1}">
+                        <apex:selectOptions value="{!items2i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION -->                   
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvg2__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvg2__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 2: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">DSP modifies own communication to ensure understanding and respect          
+
+                </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!g2}">
+                        <apex:selectOptions value="{!items2i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION --> 
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvg3__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvg3__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 3: </td>
+            <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Develops trust by communicating empathetically          
+        
+                
+            </td>
+            <td colspan="4" width="400px">
+                <apex:selectRadio value="{!g3}">
+                    <apex:selectOptions value="{!items2i}"/>         
+                </apex:selectRadio></td></tr>
+        <!-- END QUESTION -->  
+        <!-- START QUESTION -->        
+        <tr class="line" style="background-color:{!if(dsp_eval__c.xvg4__c != null, '#e6e6e6', '#ffffff'  )}">
+            <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvg4__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+            SKILL 4: </td>
+            <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Recognizes the impact of the possible discrepancies between the individual's chronological age and developmental age when communicating         
+        
+                
+            </td>
+            <td colspan="4" width="400px">
+                <apex:selectRadio value="{!g4}">
+                    <apex:selectOptions value="{!items2i}"/>         
+                </apex:selectRadio></td></tr>
+        <!-- END QUESTION -->  
+           <!--  COMMENT LINE --> 
+                
+            <tr class="line2"><td colspan="2" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid hidden solid solid">Comments:</td>
+                <td colspan="6" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid solid solid hidden">
+                    <apex:inputField value="{!DSP_Eval__c.xvGcomm__c}" style="width: 70% !important;" /></td>      
+            </tr>                     
+            
+        </table>
+        <br/>
+         
+         <br/>        
+         <apex:commandButton value="SAVE / UPDATE" action="{!updateRecord}" style="background: {!button};" />
+         <br/><br/>     
+        
+        <!-- START GOAL SECTION....  GOAL 3 -->
+
+      
+        <table border="1" cellspacing="0" width="90%" align="center" columns="9">
+            
+            <tr class="ph"><td colspan="8" style="text-align:left;text-indent:50px;font-weight:bold">SKILL</td></tr>
+  
+            <tr class="hh"><td colspan="8" style="text-align:left;text-indent:10px;color:white;background-color:black">Goal 3: Demostrating Professionalism</td></tr>
+            
+            <!-- SECTION HEADER STARTS HERE  -->
+            
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:220px;font-weight:bold;border-style:solid solid hidden solid">Competency Area H: </td></tr>
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:200px;font-weight:bold;border-style:hidden solid solid solid">Developing Professional Relationships </td></tr>
+            
+            
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvh1__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvh1__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 1: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Demonstrates respect in all professional relationships</td>
+                
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!h1}">
+                        <apex:selectOptions value="{!items2i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION -->           
+  
+           <!--  COMMENT LINE --> 
+                
+            <tr class="line2"><td colspan="2" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid hidden solid solid">Comments:</td>
+                <td colspan="6" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid solid solid hidden">
+                    <apex:inputField value="{!DSP_Eval__c.xvHcomm__c}" style="width: 70% !important;" /></td>      
+            </tr>        
+            
+            <!-- SECTION HEADER -->
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:220px;font-weight:bold;border-style:solid solid hidden solid">Competency Area I: </td></tr>
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:200px;font-weight:bold;border-style:hidden solid solid solid">Exhibiting Professional Behavior</td></tr>
+            
+            
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvi1__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvi1__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 1: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Demonstrates the following desirable professional qualities in the work site: professional demeanor, attention to punctuality and attendance policies, reliability, flexibility and pleasantness.           
+        
+                </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!i1}">
+                        <apex:selectOptions value="{!items2i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION -->                   
+  
+           <!--  COMMENT LINE --> 
+                
+            <tr class="line2"><td colspan="2" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid hidden solid solid">Comments:</td>
+                <td colspan="6" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid solid solid hidden">
+                    <apex:inputField value="{!DSP_Eval__c.xvIcomm__c}" style="width: 70% !important;" /></td>      
+            </tr>                        
+            
+            <!-- SECTION HEADER AREA J -->
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:220px;font-weight:bold;border-style:solid solid hidden solid">Competency Area J: </td></tr>
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:200px;font-weight:bold;border-style:hidden solid solid solid">Showing Respect for Diversity and Inclusion</td></tr>
+            
+            
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvj1__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvj1__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 1: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Demonstrates respect in all matters relating to diversity and inclusion         
+            
+                </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!j1}">
+                        <apex:selectOptions value="{!items2i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION -->                   
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvj2__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvj2__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 2: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Demonstrates the awareness, attitude, knowledge and skills (i.e. cultural competence) required to provide effective support to those we serve from any particular ethnic, racial, sexual orientation, religion, gender, socio-economic, age or disability group, as well as any other component diversity groups            
+        
+                    
+                </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!j2}">
+                        <apex:selectOptions value="{!items2i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION --> 
+        
+           <!--  COMMENT LINE --> 
+                
+            <tr class="line2"><td colspan="2" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid hidden solid solid">Comments:</td>
+                <td colspan="6" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid solid solid hidden">
+                    <apex:inputField value="{!DSP_Eval__c.xvJcomm__c}" style="width: 70% !important;" /></td>      
+            </tr>                   
+            
+            <!-- SECTION HEADER AREA K -->
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:220px;font-weight:bold;border-style:solid solid hidden solid">Competency Area K: </td></tr>
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:200px;font-weight:bold;border-style:hidden solid solid solid">Creating Meaningful Documentation Records</td></tr>
+            
+            
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvk1__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvk1__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 1: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Maintains accurate records by collecting, compiling, evaluating data and submitting it in a timely manner to the appropriate sources            
+        
+                </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!k1}">
+                        <apex:selectOptions value="{!items2i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION -->                               
+           <!--  COMMENT LINE --> 
+                
+            <tr class="line2"><td colspan="2" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid hidden solid solid">Comments:</td>
+                <td colspan="6" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid solid solid hidden">
+                    <apex:inputField value="{!DSP_Eval__c.xvKcomm__c}" style="width: 70% !important;" /></td>      
+            </tr>            
+            
+            <!-- SECTION HEADER AREA L -->
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:220px;font-weight:bold;border-style:solid solid hidden solid">Competency Area L: </td></tr>
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:200px;font-weight:bold;border-style:hidden solid solid solid">Education,Training and Self-Development Activities</td></tr>
+            
+            
+        <!-- START QUESTION -->        
+        <tr class="line" style="background-color:{!if(dsp_eval__c.xvl1__c != null, '#e6e6e6', '#ffffff'  )}">
+            <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvl1__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+            SKILL 1: </td>
+            <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Demonstrates enthusiasm for learning the knowledge and skills required to perform the job           
+                    
+            </td>
+            <td colspan="4" width="400px">
+                <apex:selectRadio value="{!l1}">
+                    <apex:selectOptions value="{!items2i}"/>         
+                </apex:selectRadio></td></tr>
+        <!-- END QUESTION -->  
+        <!-- START QUESTION -->        
+        <tr class="line" style="background-color:{!if(dsp_eval__c.xvl2__c != null, '#e6e6e6', '#ffffff'  )}">
+            <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvl2__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+            SKILL 2: </td>
+            <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Readily seeks and accepts feedback to improve performance           
+            
+                
+            </td>
+            <td colspan="4" width="400px">
+                <apex:selectRadio value="{!l2}">
+                    <apex:selectOptions value="{!items2i}"/>         
+                </apex:selectRadio></td></tr>
+            <!-- END QUESTION --> 
+            
+        <!-- START QUESTION -->        
+        <tr class="line" style="background-color:{!if(dsp_eval__c.xvl3__c != null, '#e6e6e6', '#ffffff'  )}">
+            <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvl3__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+            SKILL 3: </td>
+            <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Applies knowledge and skills gained to the job          
+
+            </td>
+            <td colspan="4" width="400px">
+                <apex:selectRadio value="{!l3}">
+                    <apex:selectOptions value="{!items2i}"/>         
+                </apex:selectRadio></td></tr>
+        <!-- END QUESTION -->                
+            
+            
+           <!--  COMMENT LINE --> 
+                
+            <tr class="line2"><td colspan="2" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid hidden solid solid">Comments:</td>
+                <td colspan="6" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid solid solid hidden">
+                    <apex:inputField value="{!DSP_Eval__c.xvLcomm__c}" style="width: 70% !important;" /></td>      
+            </tr>        
+            
+         <!-- SECTION HEADER AREA M -->
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:220px;font-weight:bold;border-style:solid solid hidden solid">Competency Area M: </td></tr>
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:200px;font-weight:bold;border-style:hidden solid solid solid">Organizational Participation</td></tr>
+            
+            
+        <!-- START QUESTION -->        
+        <tr class="line" style="background-color:{!if(dsp_eval__c.xvm1__c != null, '#e6e6e6', '#ffffff'  )}">
+            <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvm1__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+            SKILL 1: </td>
+            <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Adheres to and promotes the mission, culture and practices of the organization          
+    
+            </td>
+            <td colspan="4" width="400px">
+                <apex:selectRadio value="{!m1}">
+                    <apex:selectOptions value="{!items2i}"/>         
+                </apex:selectRadio></td></tr>
+        <!-- END QUESTION -->  
+        <!-- START QUESTION -->        
+        <tr class="line" style="background-color:{!if(dsp_eval__c.xvm2__c != null, '#e6e6e6', '#ffffff'  )}">
+            <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvm2__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+            SKILL 2: </td>
+            <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Participates in the work of the organization in a positive way by using problem solving skills          
+        
+                
+            </td>
+            <td colspan="4" width="400px">
+                <apex:selectRadio value="{!m2}">
+                    <apex:selectOptions value="{!items2i}"/>         
+                </apex:selectRadio></td></tr>
+            <!-- END QUESTION --> 
+            
+        <!-- START QUESTION -->        
+        <tr class="line" style="background-color:{!if(dsp_eval__c.xvm3__c != null, '#e6e6e6', '#ffffff'  )}">
+            <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvm3__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+            SKILL 3: </td>
+            <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Adheres to corporate compliance policies and procedures         
+
+            </td>
+            <td colspan="4" width="400px">
+                <apex:selectRadio value="{!m3}">
+                    <apex:selectOptions value="{!items2i}"/>         
+                </apex:selectRadio></td></tr>
+        <!-- END QUESTION -->                
+            
+            
+           <!--  COMMENT LINE --> 
+                
+            <tr class="line2"><td colspan="2" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid hidden solid solid">Comments:</td>
+                <td colspan="6" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid solid solid hidden">
+                    <apex:inputField value="{!DSP_Eval__c.xvMcomm__c}" style="width: 70% !important;" /></td>      
+            </tr>        
+            
+         <!-- SECTION HEADER AREA N -->
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:220px;font-weight:bold;border-style:solid solid hidden solid">Competency Area N: </td></tr>
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:200px;font-weight:bold;border-style:hidden solid solid solid">Exhibiting Ethical Behavior on the Job</td></tr>
+            
+            
+        <!-- START QUESTION -->        
+        <tr class="line" style="background-color:{!if(dsp_eval__c.xvn1__c != null, '#e6e6e6', '#ffffff'  )}">
+            <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvn1__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+            SKILL 1: </td>
+            <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Knows, understands, and follows the NADSP Code of Ethics            
+    
+                
+            </td>
+            <td colspan="4" width="400px">
+                <apex:selectRadio value="{!n1}">
+                    <apex:selectOptions value="{!items2i}"/>         
+                </apex:selectRadio></td></tr>
+        <!-- END QUESTION -->  
+
+           <!--  COMMENT LINE --> 
+                
+            <tr class="line2"><td colspan="2" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid hidden solid solid">Comments:</td>
+                <td colspan="6" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid solid solid hidden">
+                    <apex:inputField value="{!DSP_Eval__c.xvNcomm__c}" style="width: 70% !important;" /></td>      
+            </tr>        
+        </table>
+    
+         
+        <!-- START GOAL SECTION HERE...... GOAL 4 -->
+        
+        
+        <table border="1" cellspacing="0" width="90%" align="center" columns="9">
+            
+            <tr class="ph"><td colspan="8" style="text-align:left;text-indent:50px;font-weight:bold">SKILL</td></tr>
+  
+            <tr class="hh"><td colspan="8" style="text-align:left;text-indent:10px;color:white;background-color:black">Goal 4:  Supporting Good Health</td></tr>
+            
+            <!-- SECTION HEADER STARTS HERE  -->
+            
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:220px;font-weight:bold;border-style:solid solid hidden solid">Competency Area O: </td></tr>
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:200px;font-weight:bold;border-style:hidden solid solid solid">Promoting Positive Behavior and Supports </td></tr>
+            
+            
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvo1__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvo1__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 1: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Demonstrates team work with the individual, co-workers and family in implementing positive behavioral support strategies consistent with available behavior support plans.          
+
+                </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!o1}">
+                        <apex:selectOptions value="{!items1i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION -->           
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvo2__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvo2__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 2: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Demonstrates effective methods to teach positive behaviors and support existing positive behaviors
+                </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!o2}">
+                        <apex:selectOptions value="{!items2i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION -->
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvo3__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvo3__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 3: </td>
+            <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Assess strategies to evaluate how environmental factors affect behavior         
+ 
+            </td>
+            <td colspan="4" width="400px">
+                <apex:selectRadio value="{!o3}">
+                    <apex:selectOptions value="{!items2i}"/>         
+                </apex:selectRadio></td></tr>
+        <!-- END QUESTION -->            
+            
+           <!--  COMMENT LINE --> 
+                
+            <tr class="line2"><td colspan="2" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid hidden solid solid">Comments:</td>
+                <td colspan="6" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid solid solid hidden">
+                    <apex:inputField value="{!DSP_Eval__c.xvOcomm__c}" style="width: 70% !important;" /></td>      
+            </tr>        
+            
+            <!-- SECTION HEADER -->
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:220px;font-weight:bold;border-style:solid solid hidden solid">Competency Area P: </td></tr>
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:100px;font-weight:bold;border-style:hidden solid solid solid">Supporting Health and Wellness (Note: The responsibility of the DSP will vary depending on the type of service arrangement, such as certified vs. uncertified settings; agency vs. self-directed services, etc.)  (Registered Professional Nurses are responsible for training, supervising, and evaluating DSPs on delegated nursing tasks and the provision of health care.  Supervisors and RNs should be communicating regularly regarding DSPs performance on these tasks)                     
+    </td></tr>
+            
+            
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvp1__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvp1__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 1: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Demonstrates and assists in nutritious meal planning and food preparation, storage and handling procedures          
+    
+                </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!p1}">
+                        <apex:selectOptions value="{!items1i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION -->                   
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvp2__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvp2__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 2: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Demonstrates knowledge and understanding of an individual's medical, physical, psychological and dental health care needs           
+
+                </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!p2}">
+                        <apex:selectOptions value="{!items1i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION --> 
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvp3__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvp3__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 3: </td>
+            <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Demonstrates knowledge of and uses accepted methods to prevent illness and disease, and teaches prevention methods to the individual (Note: This section may not apply in uncertified settings)         
+            
+                
+            </td>
+            <td colspan="4" width="400px">
+                <apex:selectRadio value="{!p3}">
+                    <apex:selectOptions value="{!items1i}"/>         
+                </apex:selectRadio></td></tr>
+        <!-- END QUESTION -->  
+        <!-- START QUESTION -->        
+        <tr class="line" style="background-color:{!if(dsp_eval__c.xvp4__c != null, '#e6e6e6', '#ffffff'  )}">
+            <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvp4__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+            SKILL 4: </td>
+            <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Recognizes and responds in a timely manner to signs and symptoms of illness/injury and medical emergencies          
+            
+                
+            </td>
+            <td colspan="4" width="400px">
+                <apex:selectRadio value="{!p4}">
+                    <apex:selectOptions value="{!items1i}"/>         
+                </apex:selectRadio></td></tr>
+        <!-- END QUESTION -->  
+        <!-- START QUESTION -->        
+        <tr class="line" style="background-color:{!if(dsp_eval__c.xvp5__c != null, '#e6e6e6', '#ffffff'  )}">
+            <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvp5__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+            SKILL 5: </td>
+            <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Provides a safe and clean environment for the individual based on skill level and risks         
+            
+                
+            </td>
+            <td colspan="4" width="400px">
+                <apex:selectRadio value="{!p5}">
+                    <apex:selectOptions value="{!items2i}"/>         
+                </apex:selectRadio></td></tr>
+        <!-- END QUESTION -->  
+       <!-- START QUESTION -->        
+        <tr class="line" style="background-color:{!if(dsp_eval__c.xvp6__c != null, '#e6e6e6', '#ffffff'  )}">
+            <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvp6__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+            SKILL 6: </td>
+            <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Accurately documents and adequately protects all health information         
+        
+                
+            </td>
+            <td colspan="4" width="400px">
+                <apex:selectRadio value="{!p6}">
+                    <apex:selectOptions value="{!items1i}"/>         
+                </apex:selectRadio></td></tr>
+        <!-- START QUESTION -->        
+        <tr class="line" style="background-color:{!if(dsp_eval__c.xvp7__c != null, '#e6e6e6', '#ffffff'  )}">
+            <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvp7__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+            SKILL 7: </td>
+            <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Understands and can implement daily health practices to support good health         
+
+            </td>
+            <td colspan="4" width="400px">
+                <apex:selectRadio value="{!p7}">
+                    <apex:selectOptions value="{!items1i}"/>         
+                </apex:selectRadio></td></tr>
+        <!-- END QUESTION -->          <!-- END QUESTION -->   
+            
+ 
+           <!--  COMMENT LINE --> 
+                
+            <tr class="line2"><td colspan="2" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid hidden solid solid">Comments:</td>
+                <td colspan="6" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid solid solid hidden">
+                    <apex:inputField value="{!DSP_Eval__c.xvPcomm__c}" style="width: 70% !important;" /></td>      
+            </tr>                         
+            
+            <!-- SECTION HEADER AREA C -->
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:220px;font-weight:bold;border-style:solid solid hidden solid">Competency Area Q: </td></tr>
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:200px;font-weight:bold;border-style:hidden solid solid solid">Preventing, Recognizing and Reporting Abuse</td></tr>
+            
+            
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvq1__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvq1__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 1: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Recognizes concepts related to the prevention of abuse          
+            
+                </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!q1}">
+                        <apex:selectOptions value="{!items2i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION -->                   
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvq2__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvq2__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 2: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Is able to prevent abuse            
+    
+                </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!q2}">
+                        <apex:selectOptions value="{!items2i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION --> 
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvq3__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvq3__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 3: </td>
+            <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Correctly follows procedures for mandated reporting and responding          
+            
+                
+            </td>
+            <td colspan="4" width="400px">
+                <apex:selectRadio value="{!q3}">
+                    <apex:selectOptions value="{!items2i}"/>         
+                </apex:selectRadio></td></tr>
+        <!-- END QUESTION -->  
+   
+           <!--  COMMENT LINE --> 
+                
+            <tr class="line2"><td colspan="2" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid hidden solid solid">Comments:</td>
+                <td colspan="6" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid solid solid hidden">
+                    <apex:inputField value="{!DSP_Eval__c.xvQcomm__c}" style="width: 70% !important;" /></td>      
+            </tr>  
+            
+         <br/>        
+         <apex:commandButton value="SAVE / UPDATE" action="{!updateRecord}" style="background: {!button};" />
+         <br/><br/>            
+ 
+        </table>
+        <br/>
+        
+        <!-- START GOAL SECTION HERE -- GOAL FIVE -->              
+        
+        <table border="1" cellspacing="0" width="90%" align="center" columns="9">
+            
+            <tr class="ph"><td colspan="8" style="text-align:left;text-indent:50px;font-weight:bold">SKILL</td></tr>
+  
+            <tr class="hh"><td colspan="8" style="text-align:left;text-indent:10px;color:white;background-color:black">Goal 5: Supporting Safety</td></tr>
+            
+            <!-- SECTION HEADER STARTS HERE  -->
+            
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:220px;font-weight:bold;border-style:solid solid hidden solid">Competency Area R: </td></tr>
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:200px;font-weight:bold;border-style:hidden solid solid solid">Supporting crisis prevention, intervention and resolution </td></tr>
+            
+            
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvr1__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvr1__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 1: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Demonstrates skill in applying the principles and practices of the OPWDD PROMOTE (Positive Relationships Offer More Opportunities To Everyone) competencies and individual-specific Behavior Support Plan, if applicable.           
+                </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!r1}">
+                        <apex:selectOptions value="{!items1i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION -->           
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvr2__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvr2__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 2: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Demonstrates respect for the safety of all others           
+
+                </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!r2}">
+                        <apex:selectOptions value="{!items2i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION -->
+           <!--  COMMENT LINE --> 
+
+            <tr class="line2"><td colspan="2" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid hidden solid solid">Comments:</td>
+                <td colspan="6" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid solid solid hidden">
+                    <apex:inputField value="{!DSP_Eval__c.xvRcomm__c}" style="width: 70% !important;" /></td>      
+            </tr>                  
+
+            <!-- SECTION HEADER -->
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:220px;font-weight:bold;border-style:solid solid hidden solid">Competency Area S: </td></tr>
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:200px;font-weight:bold;border-style:hidden solid solid solid">Supporting Safety</td></tr>
+            
+            
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvs1__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvs1__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 1: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Supports the safety of all individuals in everyday situations           
+            
+                </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!s1}">
+                        <apex:selectOptions value="{!items2i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION -->                   
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvs2__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvs2__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 2: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Follows proper safety procedures in transportation situations           
+                </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!s2}">
+                        <apex:selectOptions value="{!items1i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION --> 
+      
+           <!--  COMMENT LINE --> 
+
+            <tr class="line2"><td colspan="2" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid hidden solid solid">Comments:</td>
+                <td colspan="6" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid solid solid hidden">
+                    <apex:inputField value="{!DSP_Eval__c.xvScomm__c}" style="width: 70% !important;" /></td>      
+            </tr>                      
+            
+            <!-- SECTION HEADER AREA T -->
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:220px;font-weight:bold;border-style:solid solid hidden solid">Competency Area T: </td></tr>
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:200px;font-weight:bold;border-style:hidden solid solid solid">Ensuring safety of Individuals during environmental emergencies</td></tr>
+            
+            
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvt1__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvt1__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 1: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Understands and can carry out plans for responding to environmental emergencies         
+        
+                </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!t1}">
+                        <apex:selectOptions value="{!items2i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION -->                   
+       
+        
+           <!--  COMMENT LINE --> 
+
+            <tr class="line2"><td colspan="2" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid hidden solid solid">Comments:</td>
+                <td colspan="6" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid solid solid hidden">
+                    <apex:inputField value="{!DSP_Eval__c.xvTcomm__c}" style="width: 70% !important;" /></td>      
+            </tr>       
+       
+        </table>
+        <br/>
+  
+         <!-- START GOAL SECTION HERE...... GOAL 6  -->
+        
+        
+        <table border="1" cellspacing="0" width="90%" align="center" columns="9">
+            
+            <tr class="ph"><td colspan="8" style="text-align:left;text-indent:50px;font-weight:bold">SKILL</td></tr>
+  
+            <tr class="hh"><td colspan="8" style="text-align:left;text-indent:10px;color:white;background-color:black">Goal 6: Having a Home</td></tr>
+            
+            <!-- SECTION HEADER STARTS HERE  -->
+            
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:220px;font-weight:bold;border-style:solid solid hidden solid">Competency Area U: </td></tr>
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:200px;font-weight:bold;border-style:hidden solid solid solid">Supporting people to live in the home of their choice.  (The responsibility of the DSP will vary dependng on the needs of the individuals served and the policies of each agency) </td></tr>
+            
+            
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvu1__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvu1__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 1: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Supports the individual by supporting a comfortable home environment            
+                </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!u1}">
+                        <apex:selectOptions value="{!items1i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION -->           
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvu2__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvu2__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 2: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Supports daily activities and accesses additional skilled supports as needed            
+            
+                </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!u2}">
+                        <apex:selectOptions value="{!items1i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION -->
+           <!--  COMMENT LINE --> 
+
+            <tr class="line2"><td colspan="2" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid hidden solid solid">Comments:</td>
+                <td colspan="6" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid solid solid hidden">
+                    <apex:inputField value="{!DSP_Eval__c.xvUcomm__c}" style="width: 70% !important;" /></td>      
+            </tr>       
+            
+       </table>
+        <br/>
+               
+        
+        <!-- START GOAL SECTION HERE...  GOAL 7 -->              
+        
+        <table border="1" cellspacing="0" width="90%" align="center" columns="9">
+            
+            <tr class="ph"><td colspan="8" style="text-align:left;text-indent:50px;font-weight:bold">SKILL</td></tr>
+  
+            <tr class="hh"><td colspan="8" style="text-align:left;text-indent:10px;color:white;background-color:black">Goal 7:  Being Active and Productive in Society</td></tr>
+            
+            <!-- SECTION HEADER STARTS HERE  -->
+            
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:220px;font-weight:bold;border-style:solid solid hidden solid">Competency Area V: </td></tr>
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:200px;font-weight:bold;border-style:hidden solid solid solid">Supporting Active Participation in the Community </td></tr>
+            
+            
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvv1__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvv1__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 1: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Supports Community participation and contribution           
+
+                </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!v1}">
+                        <apex:selectOptions value="{!items1i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION -->           
+
+           <!--  COMMENT LINE --> 
+
+            <tr class="line2"><td colspan="2" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid hidden solid solid">Comments:</td>
+                <td colspan="6" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid solid solid hidden">
+                    <apex:inputField value="{!DSP_Eval__c.xvVcomm__c}" style="width: 70% !important;" /></td>      
+            </tr>       
+            
+            <!-- SECTION HEADER -->
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:220px;font-weight:bold;border-style:solid solid hidden solid">Competency Area W: </td></tr>
+            <tr class="sh"><td colspan="8" style="text-align:left;text-indent:200px;font-weight:bold;border-style:hidden solid solid solid">Supporting Employment, Educational and Career Goal Attainment </td></tr>
+            
+            
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvw1__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvw1__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 1: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Supports the individual by being knowledgeable about the career and employment goals of the individual          
+            
+                </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!w1}">
+                        <apex:selectOptions value="{!items1i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION -->                   
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvw2__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvw2__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 2: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Supports the individual by being knowledgeable about the educational goals of the individual            
+            
+                    
+                </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!w2}">
+                        <apex:selectOptions value="{!items1i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION --> 
+            <!-- START QUESTION -->        
+            <tr class="line" style="background-color:{!if(dsp_eval__c.xvw3__c != null, '#e6e6e6', '#ffffff'  )}">
+                <td style="text-align:center;font-weight:bold;color:blue;width:40px"><apex:outputfield value="{!DSP_Eval__c.xvw3__c}" rendered="{!DSP_Eval__c.xvx_is_partial__c}"/></td><td colspan="1" style="font-weight:bold;text-decoration:underline;border-style:solid hidden solid solid;text-indent:10px">
+                SKILL 3: </td>
+                <td colspan="3" width="680px" style="border-style:solid solid solid hidden">Develops and supports the individual's skills to help the individual meet the productivity expectations of the workplace            
+                </td>
+                <td colspan="4" width="400px">
+                    <apex:selectRadio value="{!w3}">
+                        <apex:selectOptions value="{!items1i}"/>         
+                    </apex:selectRadio></td></tr>
+            <!-- END QUESTION -->      
+           <!--  COMMENT LINE --> 
+
+            <tr class="line2"><td colspan="2" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid hidden solid solid">Comments:</td>
+                <td colspan="6" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid solid solid hidden">
+                    <apex:inputField value="{!DSP_Eval__c.xvWcomm__c}" style="width: 70% !important;" /></td>      
+            </tr>       
+            
+       
+        </table>
+        
+         <br/>        
+         <apex:commandButton value="SAVE / UPDATE" action="{!updateRecord}" style="background: {!button};" />
+         <br/>
+         
+        <table border="1" cellspacing="0" width="90%" align="center" columns="9">
+            
+            <tr class="line2"><td colspan="2" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid hidden solid solid">Strengths:</td>
+                <td colspan="6" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid solid solid hidden">
+                <apex:inputField value="{!DSP_Eval__c.xvStrengths__c}" label="" style="width: 80% !important;"/></td></tr> 
+            
+            <tr class="line2"><td colspan="2" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid hidden solid solid">Areas for Improvement:</td>
+                <td colspan="6" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid solid solid hidden">
+                <apex:inputField value="{!DSP_Eval__c.xvImprove__c}" label="" style="width: 80% !important;"/></td></tr>  
+
+            <tr class="line2"><td colspan="2" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid hidden solid solid">Areas Not Addressed:</td>
+                <td colspan="6" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid solid solid hidden">
+                <apex:inputField value="{!DSP_Eval__c.xvNotAddressed__c}" label="" style="width: 80% !important;"/></td></tr> 
+            
+            <tr class="line2"><td colspan="2" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid hidden solid solid">Employee Plan:</td>
+                <td colspan="6" style="text-align:left;text-indent:50px;font-weight:bold;border-style:solid solid solid hidden">
+                <apex:inputField value="{!DSP_Eval__c.xvEmployeePlan__c}" label="" style="width: 80% !important;"/></td></tr> >                 
+            
+        </table> <!-- put some page space here    -->
+        <br/>
+         <br/>        
+         <apex:commandButton value="SAVE / UPDATE" action="{!updateRecord}" style="background: {!button};" />
+         <br/><br/>
+        <br/>
+        <br/>
+        
+        
+    </apex:form>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
     
     
-     <apex:form >
+     <apex:form rendered="{!!DSP_Eval__c.is_initial__c}">
          
          <br/>        
          <apex:commandButton value="SAVE / UPDATE" action="{!updateRecord}" style="background: {!button};" />
