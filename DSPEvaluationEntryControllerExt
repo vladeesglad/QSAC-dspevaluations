@@ -8,7 +8,7 @@ public class DSPEvaluationEntryControllerExt {
     
     list <dsp_eval__c> updatelist = new list <dsp_eval__c>();    
     
-//	THIS METHOD GETS USER SELECTABLE COLORS FOR THE FORM TO BE RENDERED    
+//	THIS METHOD GETS USER SELECTABLE COLORS FOR THE FORM TO BE RENDERED   
 
     queryAllFields getcolors = new queryAllFields();
     map <string, string> colorpairs = getcolors.getcolors('DSP evaluation');
