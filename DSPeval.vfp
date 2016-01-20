@@ -2,7 +2,7 @@
 <apex:page standardController="DSP_Eval__c" extensions="DSPEvaluationEntryControllerExt" showHeader="false" sidebar="false" applybodytag="false"
            applyHtmlTag="false">
     
-    <!-- OTHERWISE SALESFORCE AUTOMATICALLY ADDS HTML AND BODY TAGS  -->
+
     <html>
         
 
