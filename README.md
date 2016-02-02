@@ -1,6 +1,8 @@
 # QSAC-dspevaluations
 application, data model, apex code and pages for annual evaluation of employees performing services under auspices of OPWDD
 
+for Visual Samples of the Work see: 'Visual Samples: Dropbox link'
+
 OVERVIEW:
 
 This project was created as an initiative, and in response to, NY-OPWDD compliance requirements, to wit: all agencies delivering services under the auspices of OPWDD must complete annual evaluations of employees delivering said services to insure quality of service, etc., and do so in such a manner that periodic audits of evaluations may be conducted by the Department.
